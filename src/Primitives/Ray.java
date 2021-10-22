@@ -7,9 +7,11 @@ public class Ray {
     public void setP(Point3D point) {
         this._p = point;
     }
+
     public Point3D getP() {
         return this._p;
     }
+
     private class Vector {
 
         private Point3D _head;

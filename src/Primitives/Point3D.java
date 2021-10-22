@@ -66,11 +66,9 @@ public class Point3D {
     public Coordinate getX() {
         return this._x;
     }
-
     public Coordinate getY() {
         return this._y;
     }
-
     public Coordinate getZ() {
         return this._z;
     }
