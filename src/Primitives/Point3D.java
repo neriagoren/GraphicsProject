@@ -4,9 +4,9 @@ public class Point3D {
 
     public static final Point3D ZERO = new Point3D(0,0,0);
 
-    private class Coordinate {
+    public static class Coordinate {
         private double _coordinate;
-        private Coordinate() {
+        public Coordinate() {
             this._coordinate = 0;
         }
         public Coordinate(double coordinate) {

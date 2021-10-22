@@ -12,7 +12,7 @@ public class Ray {
         return this._p;
     }
 
-    private class Vector {
+    public static class Vector {
 
         private Point3D _head;
 
