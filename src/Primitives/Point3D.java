@@ -36,10 +36,10 @@ public class Point3D {
             }
 
             // typecast o to Complex so that we can compare data members
-            Coordinate c = (Coordinate) o;
+            Coordinate coordinate = (Coordinate) o;
 
             // Compare the data members and return accordingly
-            return Double.compare(this._coordinate, c.getCoordinate()) == 0;
+            return Double.compare(this._coordinate, coordinate.getCoordinate()) == 0;
         }
     }
     private Coordinate _x;
@@ -98,9 +98,9 @@ public class Point3D {
         }
 
         // typecast o to Point3D so that we can compare data members
-        Point3D c = (Point3D) o;
+        Point3D point = (Point3D) o;
 
         // Compare the data members and return accordingly
-        return this._x.equals(c.getX()) && this._y.equals(c.getY()) && this._z.equals(c.getZ());
+        return this._x.equals(point.getX()) && this._y.equals(point.getY()) && this._z.equals(point.getZ());
     }
 }

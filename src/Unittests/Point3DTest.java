@@ -9,6 +9,6 @@ public class Point3DTest {
     public void testPointValue() {
         Point3D p = new Point3D();
         double value = p.getX().getCoordinate();
-        assertEquals(0, value,0);
+        assertEquals(0, value,0.00001);
     }
 }
