@@ -17,10 +17,16 @@ public class Plane extends Geometry {
         this._normal = new Vector(other.getNormal());
     }
 
+    public void setPoint(Point3D point) {
+        this._point = point;
+    }
     public Point3D getPoint() {
         return this._point;
     }
 
+    public void setNormal(Vector normal) {
+        this._normal = normal;
+    }
     public Vector getNormal() {
         return this._normal;
     }

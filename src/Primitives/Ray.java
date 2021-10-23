@@ -41,6 +41,13 @@ public class Ray {
             this._head = point;
         }
 
+        public double length() {
+            double x = Math.pow(this._head.getX().getCoordinate(), 2);
+            double y = Math.pow(this._head.getY().getCoordinate(), 2);
+            double z = Math.pow(this._head.getZ().getCoordinate(), 2);
+            return Math.sqrt(x + y + z);
+        }
+
         public Vector normalize() {
             double length = this.length();
             double x = this._head.getX().getCoordinate() / length;
@@ -113,13 +120,6 @@ public class Ray {
         @Override
         public String toString() {
             return this._head.toString();
-        }
-
-        public double length() {
-            double x = Math.pow(this._head.getX().getCoordinate(), 2);
-            double y = Math.pow(this._head.getY().getCoordinate(), 2);
-            double z = Math.pow(this._head.getZ().getCoordinate(), 2);
-            return Math.sqrt(x + y + z);
         }
     }
 
