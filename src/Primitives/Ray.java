@@ -65,6 +65,62 @@ public class Ray {
         public String toString() {
             return this._head.toString();
         }
+
+        public double length() {
+            double x = Math.pow(this._head.getX().getCoordinate(), 2);
+            double y = Math.pow(this._head.getY().getCoordinate(), 2);
+            double z = Math.pow(this._head.getZ().getCoordinate(), 2);
+            return Math.sqrt(x + y + z);
+        }
+
+        public Vector normalize() {
+            double length = this.length();
+            double x = this._head.getX().getCoordinate() / length;
+            double y = this._head.getY().getCoordinate() / length;
+            double z = this._head.getZ().getCoordinate() / length;
+            return new Vector(x, y, z);
+        }
+
+        public Vector add(Vector other) {
+            double x = this._head.getX().getCoordinate() + other.getHead().getX().getCoordinate();
+            double y = this._head.getY().getCoordinate() + other.getHead().getY().getCoordinate();
+            double z = this._head.getZ().getCoordinate() + other.getHead().getZ().getCoordinate();
+            return new Vector(x, y, z);
+        }
+
+        public Vector subtract(Vector other) {
+            double x = this._head.getX().getCoordinate() - other.getHead().getX().getCoordinate();
+            double y = this._head.getY().getCoordinate() - other.getHead().getY().getCoordinate();
+            double z = this._head.getZ().getCoordinate() - other.getHead().getZ().getCoordinate();
+            return new Vector(x, y, z);
+        }
+
+        public Vector scale(double scalar) {
+            double x = scalar * this._head.getX().getCoordinate();
+            double y = scalar * this._head.getY().getCoordinate();
+            double z = scalar * this._head.getZ().getCoordinate();
+            return new Vector(x, y, z);
+        }
+
+        public Vector crossProduct(Vector other) {
+            double u1 = this._head.getX().getCoordinate();
+            double u2 = this._head.getY().getCoordinate();
+            double u3 = this._head.getZ().getCoordinate();
+            double v1 = other.getHead().getX().getCoordinate();
+            double v2 = other.getHead().getY().getCoordinate();
+            double v3 = other.getHead().getZ().getCoordinate();
+            return new Vector(u2*v3-u3*v2,u3*v1-u1*v3,u1*v2-u2*v1);
+        }
+
+        public double dotProduct(Vector other) {
+            double u1 = this._head.getX().getCoordinate();
+            double u2 = this._head.getY().getCoordinate();
+            double u3 = this._head.getZ().getCoordinate();
+            double v1 = other.getHead().getX().getCoordinate();
+            double v2 = other.getHead().getY().getCoordinate();
+            double v3 = other.getHead().getZ().getCoordinate();
+            return u1*v1 + u2*v2 + u3+v3;
+        }
     }
 
     @Override
