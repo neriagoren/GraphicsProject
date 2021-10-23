@@ -25,6 +25,7 @@ public class Plane extends Geometry {
         return this._normal;
     }
 
+    // for getting the d argument of Plane Equation: ax+by+cz+d = 0
     public double getD(Plane plane) {
         double x = this._point.getX().getCoordinate();
         double y = this._point.getY().getCoordinate();
@@ -48,7 +49,7 @@ public class Plane extends Geometry {
             return false;
         }
 
-        // typecast o to Point3D so that we can compare data members
+        // typecast o to Plane so that we can compare data members
         Plane plane = (Plane) o;
 
         // Compare the data members and return accordingly
