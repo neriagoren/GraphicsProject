@@ -19,6 +19,8 @@ public class Triangle extends Geometry {
         this._p3 = new Point3D(other.getP3());
     }
 
+    // add set methods here - with checks for duplicated points
+
     public Point3D getP1() {
         return this._p1;
     }
@@ -73,5 +75,5 @@ public class Triangle extends Geometry {
         }
         return true;
     }
-
+    // override toString() here
 }
