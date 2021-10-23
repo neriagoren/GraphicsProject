@@ -1,4 +1,5 @@
 package Primitives;
+import Primitives.Ray.Vector;
 
 public class Point3D {
 
@@ -62,6 +63,12 @@ public class Point3D {
         this._z = new Coordinate(z);
     }
 
+    public Point3D(Coordinate x, Coordinate y, Coordinate z) {
+        this._x = x;
+        this._y = y;
+        this._z = z;
+    }
+
     public Point3D(Point3D point) {
         this._x = new Coordinate(point.getX());
         this._y = new Coordinate(point.getY());
@@ -112,5 +119,19 @@ public class Point3D {
     @Override
     public String toString() {
         return "(" + this._x.toString() + ", " + this._y.toString() + ", " + this._z.toString() + ")";
+    }
+
+    public Point3D add(Vector v) {
+        Coordinate x = new Coordinate(this.getX().getCoordinate() + v.getHead().getX().getCoordinate());
+        Coordinate y = new Coordinate(this.getY().getCoordinate() + v.getHead().getY().getCoordinate());
+        Coordinate z = new Coordinate(this.getZ().getCoordinate() + v.getHead().getZ().getCoordinate());
+        return new Point3D(x, y, z);
+    }
+
+    public Vector subtract(Point3D other) {
+        Coordinate x = new Coordinate(this.getX().getCoordinate() - other.getX().getCoordinate());
+        Coordinate y = new Coordinate(this.getY().getCoordinate() - other.getY().getCoordinate());
+        Coordinate z = new Coordinate(this.getZ().getCoordinate() - other.getZ().getCoordinate());
+        return new Vector(new Point3D(x, y, z));
     }
 }
