@@ -1,5 +1,4 @@
 package Primitives;
-import Primitives.Ray.*;
 
 public class Point3D {
 
@@ -95,6 +94,28 @@ public class Point3D {
         this._z = z;
     }
 
+
+    public Point3D add(Ray.Vector v) {
+        Coordinate x = new Coordinate(this.getX().getCoordinate() + v.getHead().getX().getCoordinate());
+        Coordinate y = new Coordinate(this.getY().getCoordinate() + v.getHead().getY().getCoordinate());
+        Coordinate z = new Coordinate(this.getZ().getCoordinate() + v.getHead().getZ().getCoordinate());
+        return new Point3D(x, y, z);
+    }
+
+    public Ray.Vector subtract(Point3D other) {
+        Coordinate x = new Coordinate(this._x.getCoordinate() - other.getX().getCoordinate());
+        Coordinate y = new Coordinate(this._y.getCoordinate() - other.getY().getCoordinate());
+        Coordinate z = new Coordinate(this._z.getCoordinate() - other.getZ().getCoordinate());
+        return new Ray.Vector(new Point3D(x, y, z));
+    }
+
+    public double distance(Point3D other) {
+        double xValue = Math.pow(this._x.getCoordinate() - other.getX().getCoordinate(), 2);
+        double yValue = Math.pow(this._y.getCoordinate() - other.getY().getCoordinate(), 2);
+        double zValue = Math.pow(this._z.getCoordinate() - other.getZ().getCoordinate(), 2);
+        return Math.sqrt(xValue + yValue + zValue);
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -119,26 +140,5 @@ public class Point3D {
     @Override
     public String toString() {
         return "(" + this._x.toString() + ", " + this._y.toString() + ", " + this._z.toString() + ")";
-    }
-
-    public Point3D add(Vector v) {
-        Coordinate x = new Coordinate(this.getX().getCoordinate() + v.getHead().getX().getCoordinate());
-        Coordinate y = new Coordinate(this.getY().getCoordinate() + v.getHead().getY().getCoordinate());
-        Coordinate z = new Coordinate(this.getZ().getCoordinate() + v.getHead().getZ().getCoordinate());
-        return new Point3D(x, y, z);
-    }
-
-    public Vector subtract(Point3D other) {
-        Coordinate x = new Coordinate(this._x.getCoordinate() - other.getX().getCoordinate());
-        Coordinate y = new Coordinate(this._y.getCoordinate() - other.getY().getCoordinate());
-        Coordinate z = new Coordinate(this._z.getCoordinate() - other.getZ().getCoordinate());
-        return new Vector(new Point3D(x, y, z));
-    }
-
-    public double distance(Point3D other) {
-        double xValue = Math.pow(this._x.getCoordinate() - other.getX().getCoordinate(), 2);
-        double yValue = Math.pow(this._y.getCoordinate() - other.getY().getCoordinate(), 2);
-        double zValue = Math.pow(this._z.getCoordinate() - other.getZ().getCoordinate(), 2);
-        return Math.sqrt(xValue + yValue + zValue);
     }
 }

@@ -41,38 +41,6 @@ public class Ray {
             this._head = point;
         }
 
-        @Override
-        public boolean equals(Object o) {
-
-            // If the object is compared with itself then return true
-            if (o == this) {
-                return true;
-            }
-
-        /* Check if o is an instance of Vector or not
-          "null instanceof [type]" also returns false */
-            if (!(o instanceof Vector)) {
-                return false;
-            }
-
-            // typecast o to Vector so that we can compare data members
-            Vector vector = (Vector) o;
-
-            // Compare the data members and return accordingly
-            return this._head.equals(vector.getHead());
-        }
-        @Override
-        public String toString() {
-            return this._head.toString();
-        }
-
-        public double length() {
-            double x = Math.pow(this._head.getX().getCoordinate(), 2);
-            double y = Math.pow(this._head.getY().getCoordinate(), 2);
-            double z = Math.pow(this._head.getZ().getCoordinate(), 2);
-            return Math.sqrt(x + y + z);
-        }
-
         public Vector normalize() {
             double length = this.length();
             double x = this._head.getX().getCoordinate() / length;
@@ -120,6 +88,38 @@ public class Ray {
             double v2 = other.getHead().getY().getCoordinate();
             double v3 = other.getHead().getZ().getCoordinate();
             return (u1*v1 + u2*v2 + u3*v3);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+
+            // If the object is compared with itself then return true
+            if (o == this) {
+                return true;
+            }
+
+        /* Check if o is an instance of Vector or not
+          "null instanceof [type]" also returns false */
+            if (!(o instanceof Vector)) {
+                return false;
+            }
+
+            // typecast o to Vector so that we can compare data members
+            Vector vector = (Vector) o;
+
+            // Compare the data members and return accordingly
+            return this._head.equals(vector.getHead());
+        }
+        @Override
+        public String toString() {
+            return this._head.toString();
+        }
+
+        public double length() {
+            double x = Math.pow(this._head.getX().getCoordinate(), 2);
+            double y = Math.pow(this._head.getY().getCoordinate(), 2);
+            double z = Math.pow(this._head.getZ().getCoordinate(), 2);
+            return Math.sqrt(x + y + z);
         }
     }
 
