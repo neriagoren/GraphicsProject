@@ -30,13 +30,13 @@ public class Point3D {
                 return true;
             }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of Coordinate or not
           "null instanceof [type]" also returns false */
             if (!(o instanceof Coordinate)) {
                 return false;
             }
 
-            // typecast o to Complex so that we can compare data members
+            // typecast o to Coordinate so that we can compare data members
             Coordinate coordinate = (Coordinate) o;
 
             // Compare the data members and return accordingly
@@ -103,7 +103,7 @@ public class Point3D {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of Point3D or not
           "null instanceof [type]" also returns false */
         if (!(o instanceof Point3D)) {
             return false;

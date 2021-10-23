@@ -49,13 +49,13 @@ public class Ray {
                 return true;
             }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of Vector or not
           "null instanceof [type]" also returns false */
             if (!(o instanceof Vector)) {
                 return false;
             }
 
-            // typecast o to Point3D so that we can compare data members
+            // typecast o to Vector so that we can compare data members
             Vector vector = (Vector) o;
 
             // Compare the data members and return accordingly
@@ -75,13 +75,13 @@ public class Ray {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of Ray or not
           "null instanceof [type]" also returns false */
         if (!(o instanceof Ray)) {
             return false;
         }
 
-        // typecast o to Point3D so that we can compare data members
+        // typecast o to Ray so that we can compare data members
         Ray ray = (Ray) o;
 
         // Compare the data members and return accordingly
