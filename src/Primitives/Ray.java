@@ -119,7 +119,7 @@ public class Ray {
             double v1 = other.getHead().getX().getCoordinate();
             double v2 = other.getHead().getY().getCoordinate();
             double v3 = other.getHead().getZ().getCoordinate();
-            return u1*v1 + u2*v2 + u3+v3;
+            return (u1*v1 + u2*v2 + u3*v3);
         }
     }
 

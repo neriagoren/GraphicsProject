@@ -3,33 +3,32 @@ import Primitives.Point3D;
 import Primitives.Ray.*;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class Point3DTest {
 
     @Test
     public void testAdd() {
-        Point3D point = new Point3D(1,1,1);
-        Vector vector = new Vector(1,2,3);
-        Point3D newPoint = point.add(vector);
-        assertEquals(2, newPoint.getX().getCoordinate(), 0.0001 );
-        assertEquals(3, newPoint.getY().getCoordinate(), 0.0001 );
-        assertEquals(4, newPoint.getZ().getCoordinate(), 0.0001 );
+        assertEquals("Wrong point addition", new Point3D(2, 3, 4), new Point3D(1,1,1).add(new Vector(1,2,3)));
     }
 
     @Test
     public void testSubtract() {
-        Point3D point = new Point3D(1,1,1);
-        Point3D other = new Point3D(1,2,3);
-        Vector vector = point.subtract(other);
-        assertEquals(0, vector.getHead().getX().getCoordinate(), 0.0001);
-        assertEquals(-1, vector.getHead().getY().getCoordinate(), 0.0001);
-        assertEquals(-2, vector.getHead().getZ().getCoordinate(), 0.0001);
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Simple test
+        assertEquals("Wrong point subtract", new Vector(1, 1, 1),
+                new Point3D(2, 3, 4).subtract(new Point3D(1, 2, 3)));
+
+        // =============== Boundary Values Tests ==================
+        // TC11: test subtracting same point
+        try {
+            new Point3D(1, 2, 3).subtract(new Point3D(1, 2, 3));
+            fail("Subtract P from P must throw exception");
+        } catch (IllegalArgumentException e) {}
     }
 
     @Test
     public void testDistance() {
-        Point3D point = new Point3D(1,1,1);
-        Point3D other = new Point3D(1,2,3);
-        assertEquals(Math.sqrt(5), point.distance(other), 0.0001);
+        assertEquals("Wrong distance calculation", Math.sqrt(5), new Point3D(1,1,1).distance(new Point3D(1,2,3)), 0.0001);
     }
 }
