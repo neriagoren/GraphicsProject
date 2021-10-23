@@ -41,6 +41,11 @@ public class Point3D {
             // Compare the data members and return accordingly
             return Double.compare(this._coordinate, coordinate.getCoordinate()) == 0;
         }
+
+        @Override
+        public String toString() {
+            return Double.toString(this._coordinate);
+        }
     }
     private Coordinate _x;
     private Coordinate _y;
@@ -102,5 +107,10 @@ public class Point3D {
 
         // Compare the data members and return accordingly
         return this._x.equals(point.getX()) && this._y.equals(point.getY()) && this._z.equals(point.getZ());
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this._x.toString() + ", " + this._y.toString() + ", " + this._z.toString() + ")";
     }
 }

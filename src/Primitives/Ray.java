@@ -61,6 +61,10 @@ public class Ray {
             // Compare the data members and return accordingly
             return this._head.equals(vector.getHead());
         }
+        @Override
+        public String toString() {
+            return this._head.toString();
+        }
     }
 
     @Override
@@ -82,5 +86,10 @@ public class Ray {
 
         // Compare the data members and return accordingly
         return this._p.equals(ray.getP()) && this._direction.equals(ray.getDirection());
+    }
+
+    @Override
+    public String toString() {
+        return "P: " + this._p.toString() + ", Direction: " + this._direction.toString();
     }
 }
