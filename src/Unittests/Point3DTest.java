@@ -2,7 +2,6 @@ package Unittests;
 import Primitives.Point3D;
 import Primitives.Ray.*;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class Point3DTest {
@@ -25,5 +24,12 @@ public class Point3DTest {
         assertEquals(0, vector.getHead().getX().getCoordinate(), 0.0001);
         assertEquals(-1, vector.getHead().getY().getCoordinate(), 0.0001);
         assertEquals(-2, vector.getHead().getZ().getCoordinate(), 0.0001);
+    }
+
+    @Test
+    public void testDistance() {
+        Point3D point = new Point3D(1,1,1);
+        Point3D other = new Point3D(1,2,3);
+        assertEquals(Math.sqrt(5), point.distance(other), 0.0001);
     }
 }

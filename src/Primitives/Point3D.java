@@ -1,5 +1,5 @@
 package Primitives;
-import Primitives.Ray.Vector;
+import Primitives.Ray.*;
 
 public class Point3D {
 
@@ -129,9 +129,16 @@ public class Point3D {
     }
 
     public Vector subtract(Point3D other) {
-        Coordinate x = new Coordinate(this.getX().getCoordinate() - other.getX().getCoordinate());
-        Coordinate y = new Coordinate(this.getY().getCoordinate() - other.getY().getCoordinate());
-        Coordinate z = new Coordinate(this.getZ().getCoordinate() - other.getZ().getCoordinate());
+        Coordinate x = new Coordinate(this._x.getCoordinate() - other.getX().getCoordinate());
+        Coordinate y = new Coordinate(this._y.getCoordinate() - other.getY().getCoordinate());
+        Coordinate z = new Coordinate(this._z.getCoordinate() - other.getZ().getCoordinate());
         return new Vector(new Point3D(x, y, z));
+    }
+
+    public double distance(Point3D other) {
+        double xValue = Math.pow(this._x.getCoordinate() - other.getX().getCoordinate(), 2);
+        double yValue = Math.pow(this._y.getCoordinate() - other.getY().getCoordinate(), 2);
+        double zValue = Math.pow(this._z.getCoordinate() - other.getZ().getCoordinate(), 2);
+        return Math.sqrt(xValue + yValue + zValue);
     }
 }
