@@ -7,36 +7,45 @@ public class Ray {
     public void setP(Point3D point) {
         this._p = point;
     }
+
     public Point3D getP() {
         return this._p;
     }
+
     public void setDirection(Point3D head) {
         this._direction.setHead(head);
     }
+
     public Vector getDirection() {
         return this._direction;
     }
 
     public static class Vector {
+
         private Point3D _head;
+
         public Vector(double x, double y, double z) {
             this._head = new Point3D(x, y, z);
             if (Point3D.ZERO.equals(this._head)) {
                 throw new IllegalArgumentException("Zero vector is not allowed");
             }
         }
+
         public Vector(Point3D p) {
             if (Point3D.ZERO.equals(p)) {
                 throw new IllegalArgumentException("Zero vector is not allowed");
             }
             this._head = new Point3D(p);
         }
+
         public Vector(Vector other) {
             this._head = new Point3D(other.getHead());
         }
+
         public Point3D getHead() {
             return this._head;
         }
+
         public void setHead(Point3D point) {
             this._head = point;
         }
@@ -57,17 +66,11 @@ public class Ray {
         }
 
         public Vector add(Vector other) {
-            double x = this._head.getX().getCoordinate() + other.getHead().getX().getCoordinate();
-            double y = this._head.getY().getCoordinate() + other.getHead().getY().getCoordinate();
-            double z = this._head.getZ().getCoordinate() + other.getHead().getZ().getCoordinate();
-            return new Vector(x, y, z);
+            return new Vector(this._head.add(other));
         }
 
         public Vector subtract(Vector other) {
-            double x = this._head.getX().getCoordinate() - other.getHead().getX().getCoordinate();
-            double y = this._head.getY().getCoordinate() - other.getHead().getY().getCoordinate();
-            double z = this._head.getZ().getCoordinate() - other.getHead().getZ().getCoordinate();
-            return new Vector(x, y, z);
+            return new Vector(this._head.subtract(other.getHead()));
         }
 
         public Vector scale(double scalar) {
@@ -117,6 +120,7 @@ public class Ray {
             // Compare the data members and return accordingly
             return this._head.equals(vector.getHead());
         }
+
         @Override
         public String toString() {
             return this._head.toString();

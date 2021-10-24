@@ -75,5 +75,9 @@ public class Triangle extends Geometry {
         }
         return true;
     }
-    // override toString() here
+
+    @Override
+    public String toString() {
+        return "Triangle\n" + this._p1.toString() + " " + this._p2.toString() + " " + this._p3.toString();
+    }
 }
