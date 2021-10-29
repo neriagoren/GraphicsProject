@@ -14,8 +14,8 @@ public class PolygonTest {
         List<Point3D> points = new ArrayList<Point3D>();
 
         points.add(new Point3D(1,1,1));
-        points.add(new Point3D(2,2,2));
-        points.add(new Point3D(3,3,3));
+        points.add(new Point3D(3,2,2));
+        points.add(new Point3D(4,3,3));
 
         Polygon polygon = new Polygon(points);
     }

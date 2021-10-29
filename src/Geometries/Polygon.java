@@ -3,6 +3,7 @@ package Geometries;
 import Primitives.Point3D;
 import Primitives.Ray.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Polygon extends Geometry {
@@ -63,10 +64,15 @@ public class Polygon extends Geometry {
             double b = normal.getHead().getY().getCoordinate();
             double c = normal.getHead().getZ().getCoordinate();
 
-            for (int i = 3; i < this._points.size(); i++) {
-                double x = this._points.get(i).getX().getCoordinate();
-                double y = this._points.get(i).getY().getCoordinate();
-                double z = this._points.get(i).getZ().getCoordinate();
+            List<Point3D> points = new ArrayList<Point3D>();
+            points.add(A);
+            points.add(B);
+            points.add(C);
+
+            for (int i = 0; i < points.size(); i++) {
+                double x = points.get(i).getX().getCoordinate();
+                double y = points.get(i).getY().getCoordinate();
+                double z = points.get(i).getZ().getCoordinate();
 
                 if (x*a + y*b + z*c + d != 0) {
                     return false;

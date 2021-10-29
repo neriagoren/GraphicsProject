@@ -6,7 +6,8 @@ public class Ray {
     Vector _direction;
 
     public Ray(Point3D p, Vector v) {
-
+        this._p = p;
+        this._direction = v;
     }
     public void setP(Point3D point) {
         this._p = point;
@@ -122,7 +123,11 @@ public class Ray {
             Vector vector = (Vector) o;
 
             // Compare the data members and return accordingly
-            return this._head.equals(vector.getHead());
+            //return this._head.equals(vector.getHead());
+
+            double t = this._head.getX().getCoordinate() / vector.getHead().getX().getCoordinate();
+            return  (this._head.getY().getCoordinate() / vector.getHead().getY().getCoordinate() == t
+            && this._head.getZ().getCoordinate() / vector.getHead().getZ().getCoordinate() == t);
         }
 
         @Override
