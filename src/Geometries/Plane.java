@@ -6,15 +6,18 @@ import Primitives.Ray.*;
 public class Plane extends Geometry {
     private Point3D _point;
     private Vector _normal;
+    private double _d;
 
     public Plane(Point3D point, Vector normal) {
         this._point = point;
         this._normal = normal;
+        this.calculateD();
     }
 
     public Plane(Plane other) {
         this._point = new Point3D(other.getPoint());
         this._normal = new Vector(other.getNormal());
+        this._d = other._d;
     }
 
     public void setPoint(Point3D point) {
@@ -31,16 +34,20 @@ public class Plane extends Geometry {
         return this._normal;
     }
 
-    // for getting the d argument of Plane Equation: ax+by+cz+d = 0
-    public double getD(Plane plane) {
+    public double getD() {
+        return this._d;
+    }
+    // for calculating the d argument of Plane Equation: ax+by+cz+d = 0
+    public void calculateD() {
         double x = this._point.getX().getCoordinate();
         double y = this._point.getY().getCoordinate();
         double z = this._point.getZ().getCoordinate();
         double a = this._normal.getHead().getX().getCoordinate();
         double b = this._normal.getHead().getY().getCoordinate();
         double c = this._normal.getHead().getZ().getCoordinate();
-        return -x*a - y*b - z*c;
+        this._d = -x*a - y*b - z*c;
     }
+
     @Override
     public boolean equals(Object o) {
 
@@ -67,7 +74,7 @@ public class Plane extends Geometry {
 
             // testing if the planes are the same plane
 
-            double d = this.getD(this);
+            double d = this.getD();
 
             double a = this._normal.getHead().getX().getCoordinate();
             double b = this._normal.getHead().getY().getCoordinate();

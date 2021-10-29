@@ -1,9 +1,13 @@
 package Primitives;
 
+
 public class Ray {
     Point3D _p;
     Vector _direction;
 
+    public Ray(Point3D p, Vector v) {
+
+    }
     public void setP(Point3D point) {
         this._p = point;
     }

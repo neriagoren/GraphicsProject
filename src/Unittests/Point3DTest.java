@@ -1,9 +1,9 @@
 package Unittests;
 import Primitives.Point3D;
-import Primitives.Ray.*;
+import Primitives.Ray.Vector;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 
 public class Point3DTest {
 
@@ -30,5 +30,12 @@ public class Point3DTest {
     @Test
     public void testDistance() {
         assertEquals("Wrong distance calculation", Math.sqrt(5), new Point3D(1,1,1).distance(new Point3D(1,2,3)), 0.0001);
+    }
+
+    @Test
+    public void testEquals() {
+        Point3D p1 = new Point3D(1,2,3);
+        Point3D p2 = new Point3D(1,2,3);
+        assertTrue("Not Equal Points", p1.equals(p2));
     }
 }
