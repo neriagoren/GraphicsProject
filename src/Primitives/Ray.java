@@ -159,7 +159,7 @@ public class Ray {
         Ray ray = (Ray) o;
 
         // Compare the data members and return accordingly
-        return this._p.equals(ray.getP()) && this._direction.equals(ray.getDirection());
+        return this._p.equals(ray.getP()) && this._direction.normalize().equals(ray.getDirection().normalize());
     }
 
     @Override
