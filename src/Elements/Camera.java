@@ -13,20 +13,15 @@ public class Camera {
     public Camera() {
         this._P0 = new Point3D(0,0,0);
         this._vup = new Vector(0,-1,0);
-        this._vright = new Vector(1,0,0);
+        this._vright = new Vector(-1,0,0);
         this._vto = new Vector(0,0,1);
     }
 
-    public Camera(Point3D p0, Vector up, Vector to) throws IllegalArgumentException {
-        if (up.dotProduct(to) == 0) {
-            throw new IllegalArgumentException();
-        }
-        else {
-           this._P0 = p0;
-           this._vup = up;
-           this._vto = to;
-           this._vright = up.crossProduct(to);
-        }
+    public Camera(Point3D p0, Vector to, Vector up) {
+        this._P0 = p0;
+        this._vup = up;
+        this._vto = to;
+        this._vright = up.crossProduct(to);
     }
 
     public Point3D getP0() {
@@ -62,8 +57,17 @@ public class Camera {
     }
 
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
+        Point3D pc = this._P0.add(this._vto.scale(screenDistance));
+        double rY = screenHeight / nY;
+        double rX = screenWidth / nX;
+        double xj = (j - (double)nX/2)*rX + rX/2;
+        double yi = (i - (double)nY/2)*rY + rY/2;
 
-        return new Ray(new Point3D(0,0,0), new Vector(1,1,1));
+        Point3D pij = pc.add(this._vright.scale(xj).subtract(this._vup.scale(yi)));
+
+        Vector vij = pij.subtract(this._P0);
+
+        return new Ray(new Point3D(this._P0), vij.normalize());
     }
 
     @Override
