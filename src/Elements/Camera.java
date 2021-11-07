@@ -13,7 +13,7 @@ public class Camera {
     public Camera() {
         this._P0 = new Point3D(0,0,0);
         this._vup = new Vector(0,-1,0);
-        this._vright = new Vector(-1,0,0);
+        this._vright = new Vector(1,0,0);
         this._vto = new Vector(0,0,1);
     }
 
@@ -21,7 +21,7 @@ public class Camera {
         this._P0 = p0;
         this._vup = up;
         this._vto = to;
-        this._vright = up.crossProduct(to);
+        this._vright = up.crossProduct(to).scale(-1);
     }
 
     public Point3D getP0() {
@@ -65,9 +65,19 @@ public class Camera {
 
         Point3D pij = pc.add(this._vright.scale(xj).subtract(this._vup.scale(yi)));
 
+        if (xj == 0 || yi == 0) {
+            pij = pc;
+            if (xj != 0) {
+                pij = pij.add(this._vright.scale(xj));
+            }
+            else if (yi != 0) {
+                pij = pij.add(this._vup.scale(-yi));
+            }
+        }
+
         Vector vij = pij.subtract(this._P0);
 
-        return new Ray(new Point3D(this._P0), vij.normalize());
+        return new Ray(new Point3D(this._P0), new Vector(vij).normalize());
     }
 
     @Override

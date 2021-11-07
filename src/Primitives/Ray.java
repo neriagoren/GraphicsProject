@@ -123,11 +123,16 @@ public class Ray {
             Vector vector = (Vector) o;
 
             // Compare the data members and return accordingly
-            //return this._head.equals(vector.getHead());
+            // using linear independence equations
 
-            double t = this._head.getX().getCoordinate() / vector.getHead().getX().getCoordinate();
-            return  (this._head.getY().getCoordinate() / vector.getHead().getY().getCoordinate() == t
-            && this._head.getZ().getCoordinate() / vector.getHead().getZ().getCoordinate() == t);
+            double x = this._head.getX().getCoordinate();
+            double y = this._head.getY().getCoordinate();
+            double z = this._head.getZ().getCoordinate();
+
+            double a = vector.getHead().getX().getCoordinate();
+            double b = vector.getHead().getY().getCoordinate();
+            double c = vector.getHead().getZ().getCoordinate();
+            return x == a && y == b && z == c;
         }
 
         @Override
