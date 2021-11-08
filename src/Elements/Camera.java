@@ -13,15 +13,15 @@ public class Camera {
     public Camera() {
         this._P0 = new Point3D(0,0,0);
         this._vup = new Vector(0,-1,0);
-        this._vright = new Vector(1,0,0);
         this._vto = new Vector(0,0,1);
+        this._vright = new Vector(1,0,0);
     }
 
     public Camera(Point3D p0, Vector to, Vector up) {
         this._P0 = p0;
         this._vup = up;
         this._vto = to;
-        this._vright = up.crossProduct(to).scale(-1);
+        this._vright = to.crossProduct(up);
     }
 
     public Point3D getP0() {
