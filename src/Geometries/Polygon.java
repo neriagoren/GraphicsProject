@@ -45,13 +45,7 @@ public class Polygon extends Geometry {
         Vector AB = B.subtract(A);
         Vector AC = C.subtract(A);
 
-        // t*AB = AC       ->  t = AC/AB
-        double t = AC.getHead().getX().getCoordinate() / AB.getHead().getX().getCoordinate();
-        if (AC.getHead().getY().getCoordinate() / AB.getHead().getY().getCoordinate() == t) {
-            return AC.getHead().getZ().getCoordinate() / AB.getHead().getZ().getCoordinate() == t;
-        }
-        // 3 of the polygon points are not on same line
-        return false;
+        return AB.normalize() == AC.normalize();
     }
 
     public boolean isAllPointsOnPlane(Point3D A, Point3D B, Point3D C) {
