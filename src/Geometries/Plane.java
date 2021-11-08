@@ -1,7 +1,11 @@
 package Geometries;
 
 import Primitives.Point3D;
+import Primitives.Ray;
 import Primitives.Ray.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Plane extends Geometry {
     private Point3D _point;
@@ -47,6 +51,17 @@ public class Plane extends Geometry {
         double c = this._normal.getHead().getZ().getCoordinate();
         this._d = -x*a - y*b - z*c;
     }
+
+    // IMPLEMENTATION OF ABSTRACT METHODS HERE
+    // ==============================================
+    public List<Point3D> findIntersections(Ray ray) {
+        return new ArrayList<Point3D>();
+    }
+    public Vector getNormal(Point3D point) {
+        return new Vector(1,1,1);
+    }
+    // ==============================================
+
 
     @Override
     public boolean equals(Object o) {

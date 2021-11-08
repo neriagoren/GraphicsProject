@@ -1,7 +1,8 @@
 package Geometries;
 
 import Primitives.Point3D;
-import Primitives.Ray.*;
+import Primitives.Ray;
+import Primitives.Ray.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,23 @@ public class Polygon extends Geometry {
         for (int i = 0; i < other.getPoints().size(); i++) {
             this._points.add(new Point3D(other.getPoints().get(i)));
         }
+        this._plane = new Plane(other.getPlane());
     }
 
+    // IMPLEMENTATION OF ABSTRACT METHODS HERE
+    // ==============================================
+    public List<Point3D> findIntersections(Ray ray) {
+        return new ArrayList<Point3D>();
+    }
+    public Vector getNormal(Point3D point) {
+        return new Vector(1,1,1);
+    }
+    // ==============================================
+
+
+    public Plane getPlane() {
+        return this._plane;
+    }
     public List<Point3D> getPoints() {
         return this._points;
     }
@@ -63,12 +79,12 @@ public class Polygon extends Geometry {
             points.add(B);
             points.add(C);
 
-            for (int i = 0; i < points.size(); i++) {
-                double x = points.get(i).getX().getCoordinate();
-                double y = points.get(i).getY().getCoordinate();
-                double z = points.get(i).getZ().getCoordinate();
+            for (Point3D point : points) {
+                double x = point.getX().getCoordinate();
+                double y = point.getY().getCoordinate();
+                double z = point.getZ().getCoordinate();
 
-                if (x*a + y*b + z*c + d != 0) {
+                if (x * a + y * b + z * c + d != 0) {
                     return false;
                 }
             }

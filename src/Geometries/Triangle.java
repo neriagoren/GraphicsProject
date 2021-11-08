@@ -1,6 +1,10 @@
 package Geometries;
 
 import Primitives.Point3D;
+import Primitives.Ray;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Triangle extends Geometry {
     private Point3D _p1;
@@ -30,6 +34,17 @@ public class Triangle extends Geometry {
     public Point3D getP3() {
         return this._p3;
     }
+
+    // IMPLEMENTATION OF ABSTRACT METHODS HERE
+    // ==============================================
+    public List<Point3D> findIntersections(Ray ray) {
+        return new ArrayList<Point3D>();
+    }
+    public Ray.Vector getNormal(Point3D point) {
+        return new Ray.Vector(1,1,1);
+    }
+    // ==============================================
+
 
     @Override
     public boolean equals(Object o) {
