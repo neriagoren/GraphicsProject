@@ -82,6 +82,7 @@ public class Triangle extends Geometry {
             for (int j = 0; j <= 2; j++) {
                 if (triangle1[i].equals(triangle2[j])) {
                     flag = true;
+                    break;
                 }
             }
             if (!flag) {
