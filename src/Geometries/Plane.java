@@ -14,7 +14,7 @@ public class Plane extends Geometry {
 
     public Plane(Point3D point, Vector normal) {
         this._point = point;
-        this._normal = normal;
+        this._normal = normal.normalize();
         this.calculateD();
     }
 
@@ -32,7 +32,7 @@ public class Plane extends Geometry {
     }
 
     public void setNormal(Vector normal) {
-        this._normal = normal;
+        this._normal = normal.normalize();
     }
     public Vector getNormal() {
         return this._normal;

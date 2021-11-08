@@ -15,7 +15,6 @@ public class Point3D {
         public Coordinate(Coordinate coordinate) {
             this._coordinate = coordinate.getCoordinate();
         }
-
         public double getCoordinate() {return this._coordinate;}
         public void setCoordinate(double coordinate) {
             this._coordinate = coordinate;
@@ -47,6 +46,7 @@ public class Point3D {
             return Double.toString(this._coordinate);
         }
     }
+
     private Coordinate _x;
     private Coordinate _y;
     private Coordinate _z;
