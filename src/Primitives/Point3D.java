@@ -4,6 +4,10 @@ public class Point3D {
 
     public static final Point3D ZERO = new Point3D(0,0,0);
 
+    private Coordinate _x;
+    private Coordinate _y;
+    private Coordinate _z;
+
     public static class Coordinate {
         private double _coordinate;
         public Coordinate() {
@@ -46,10 +50,6 @@ public class Point3D {
             return Double.toString(this._coordinate);
         }
     }
-
-    private Coordinate _x;
-    private Coordinate _y;
-    private Coordinate _z;
 
     public Point3D() {
         this._x = new Coordinate(0);

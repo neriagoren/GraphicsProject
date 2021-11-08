@@ -1,7 +1,7 @@
 package Primitives;
 
-
 public class Ray {
+
     Point3D _p;
     Vector _direction;
 
@@ -9,18 +9,16 @@ public class Ray {
         this._p = p;
         this._direction = v;
     }
+
     public void setP(Point3D point) {
         this._p = point;
     }
-
     public Point3D getP() {
         return this._p;
     }
-
     public void setDirection(Point3D head) {
         this._direction.setHead(head);
     }
-
     public Vector getDirection() {
         return this._direction;
     }
