@@ -55,6 +55,7 @@ public class Polygon extends Geometry {
     public Plane getPlane() {
         return this._plane;
     }
+
     public List<Point3D> getPoints() {
         return this._points;
     }
@@ -62,7 +63,7 @@ public class Polygon extends Geometry {
     public boolean are3PointsOnLine(Point3D A, Point3D B, Point3D C) {
         Vector AB = B.subtract(A);
         Vector AC = C.subtract(A);
-        return AB.normalize() == AC.normalize();
+        return AB.normalize().equals(AC.normalize());
     }
 
     public boolean isAllPointsOnPlane(Point3D A, Point3D B, Point3D C) {

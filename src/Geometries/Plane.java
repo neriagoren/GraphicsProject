@@ -14,7 +14,7 @@ public class Plane extends Geometry {
 
     public Plane(Point3D point, Vector normal) {
         this._point = point;
-        this._normal = normal.normalize();
+        this._normal = normal;
         this.calculateD();
     }
 
@@ -82,13 +82,15 @@ public class Plane extends Geometry {
 
         // Compare the data members and return accordingly
         try {
-            this._normal.crossProduct(plane.getNormal());
+            if (this._normal.normalize().equals(plane.getNormal().normalize())) {
+                System.out.println("Might be parallel planes!");
+                throw new IllegalArgumentException();
+            }
+
         }
         catch (IllegalArgumentException e) {
-            System.out.println("Might be parallel planes!");
 
-            // testing if the planes are the same plane
-
+            // checking if the planes are the same plane
             double d = this.getD();
 
             double a = this._normal.getHead().getX().getCoordinate();
