@@ -32,7 +32,5 @@ public class PolygonTest {
 
         assertTrue("Not equal polygons", polygon1.equals(polygon2));
 
-        System.out.println(polygon1.toString());
-
     }
 }
