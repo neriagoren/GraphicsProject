@@ -137,7 +137,13 @@ public class Polygon extends Geometry {
 
     @Override
     public String toString() {
-        return "";
-    }
+        String polygon = "";
 
+        for (Point3D point : this._points) {
+            polygon += point.toString();
+            polygon += " ";
+        }
+
+        return polygon;
+    }
 }
