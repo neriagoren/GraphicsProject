@@ -103,8 +103,8 @@ public class Camera {
 
     @Override
     public String toString() {
-        return this._P0.toString() + ", vUp: " + this._vup.toString()
-                + ", Vright: " + this._vright.toString()
-                + ", Vto: " + this._vto.toString();
+        return "Camera properties: " + this._P0.toString() + ", vup: " + this._vup.toString()
+                + ", vright: " + this._vright.toString()
+                + ", vto: " + this._vto.toString();
     }
 }
