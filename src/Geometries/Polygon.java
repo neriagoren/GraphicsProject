@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Polygon extends Geometry {
     private List<Point3D> _points;
-    private Plane _plane;
 
     // minimum 3 points for polygon!
     // check if they are all on same plane!
@@ -22,7 +21,7 @@ public class Polygon extends Geometry {
             else {
                 // the method isAllPointsOnPlane calculates also the plane of the polygon
                 // then assign it to class member - plane
-                if(isAllPointsOnPlane(points.get(0), points.get(1), points.get(2))) {
+                if(!isAllPointsOnPlane(points)) {
                     this._points = points;
                 }
                 else {
@@ -38,7 +37,6 @@ public class Polygon extends Geometry {
         for (int i = 0; i < other.getPoints().size(); i++) {
             this._points.add(new Point3D(other.getPoints().get(i)));
         }
-        this._plane = new Plane(other.getPlane());
     }
 
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
@@ -52,43 +50,49 @@ public class Polygon extends Geometry {
     // ==============================================
 
 
-    public Plane getPlane() {
-        return this._plane;
-    }
 
     public List<Point3D> getPoints() {
         return this._points;
     }
 
-    public boolean are3PointsOnLine(Point3D A, Point3D B, Point3D C) {
-        Vector AB = B.subtract(A);
-        Vector AC = C.subtract(A);
-        return AB.normalize().equals(AC.normalize());
+    public boolean arePointsOnLine(List<Point3D> points) {
+
+        for (Point3D point1 : points) {
+            for (Point3D point2 : points) {
+                for (Point3D point3 : points) {
+                    if (!(point1.equals(point2)) &&  !(point1.equals(point3))  && !(point2.equals(point3))) {
+                        Vector AB = point2.subtract(point1);
+                        Vector AC = point3.subtract(point1);
+                        if (AB.normalize().equals(AC.normalize())) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
-    public boolean isAllPointsOnPlane(Point3D A, Point3D B, Point3D C) {
-        if (!are3PointsOnLine(A, B, C)) {
-            Vector normal = new Vector(B.subtract(A)).crossProduct(new Vector(C.subtract(A)));
+    public boolean isAllPointsOnPlane(List<Point3D> points) {
+        if (!arePointsOnLine(points)) {
+            Vector normal = new Vector(points.get(1).subtract(points.get(0))).crossProduct(new Vector(points.get(2).subtract(points.get(0))));
 
             // if the polygon is valid then plane is assigned to class member.
-            this._plane = new Plane(A, normal);
-            double d = _plane.getD();
+            Plane plane = new Plane(points.get(0), normal);
+            double d = plane.getD();
 
             double a = normal.getHead().getX().getCoordinate();
             double b = normal.getHead().getY().getCoordinate();
             double c = normal.getHead().getZ().getCoordinate();
 
-            List<Point3D> points = new ArrayList<Point3D>();
-            points.add(A);
-            points.add(B);
-            points.add(C);
 
             for (Point3D point : points) {
                 double x = point.getX().getCoordinate();
                 double y = point.getY().getCoordinate();
                 double z = point.getZ().getCoordinate();
 
-                if (x * a + y * b + z * c + d == 0) {
+                if (x * a + y * b + z * c + d != 0) {
                     return false;
                 }
             }
@@ -128,7 +132,7 @@ public class Polygon extends Geometry {
                 return false;
             }
         }
-        return this._plane.equals(polygon.getPlane());
+        return true;
     }
 
     @Override

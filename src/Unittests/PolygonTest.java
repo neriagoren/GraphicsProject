@@ -1,5 +1,36 @@
 package Unittests;
 
+import Geometries.Polygon;
+import Primitives.Point3D;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 public class PolygonTest {
 
+    @Test
+    public void testEquals() {
+
+        List<Point3D> points1 = new ArrayList<Point3D>();
+        List<Point3D> points2 = new ArrayList<Point3D>();
+
+        points1.add(new Point3D(1,0,0));
+        points1.add(new Point3D(0,1,0));
+        points1.add(new Point3D(0,0,1));
+        points1.add(new Point3D(1,1,1));
+
+        points2.add(new Point3D(0,1,0));
+        points2.add(new Point3D(1,0,0));
+        points2.add(new Point3D(0,0,1));
+        points2.add(new Point3D(1,1,1));
+
+        Polygon polygon1 = new Polygon(points1);
+        Polygon polygon2 = new Polygon(points2);
+
+        assertTrue("Not equal polygons", polygon1.equals(polygon2));
+
+    }
 }
