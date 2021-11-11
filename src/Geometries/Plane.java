@@ -60,6 +60,7 @@ public class Plane extends Geometry {
         if (ray.getP().equals(this._point)) {
             throw new IllegalArgumentException("ray's point cannot be equal to plane's point");
         }
+        List<Point3D> points = new ArrayList<Point3D>();
         double t, numerator, denominator;
         numerator = this._normal.dotProduct(this._point.subtract(ray.getP()));
         denominator = this._normal.dotProduct(ray.getDirection());
@@ -67,8 +68,12 @@ public class Plane extends Geometry {
             throw new IllegalArgumentException("Cannot be 0");
         }
         t = numerator/denominator;
+
+        // if t <= 0 return no points (empty list)
+        if (t <= 0) {
+            return points;
+        }
         Point3D p = ray.getP().add(ray.getDirection().scale(t));
-        List<Point3D> points = new ArrayList<Point3D>();
         points.add(p);
         return points;
     }

@@ -43,7 +43,23 @@ public class Sphere extends Geometry {
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
-        return new ArrayList<Point3D>();
+
+        List<Point3D> points = new ArrayList<>();
+        Ray.Vector u = this._center.subtract(ray.getP());
+        double tm = ray.getDirection().dotProduct(u);
+        double uLength = this._center.distance(ray.getP());
+        double d = Math.sqrt(Math.pow(uLength,2) - Math.pow(tm,2));
+        double th = Math.sqrt(Math.pow(this._radius,2) - Math.pow(d,2));
+        double t1 = tm + th;
+        double t2 = tm - th;
+
+        if (t1 > 0) {
+            points.add(new Point3D(ray.getP().add(ray.getDirection().scale(t1))));
+        }
+        if (t2 > 0) {
+            points.add(new Point3D(ray.getP().add(ray.getDirection().scale(t2))));
+        }
+        return points;
     }
     public Ray.Vector getNormal(Point3D point) {
         return point.subtract(this._center).normalize();

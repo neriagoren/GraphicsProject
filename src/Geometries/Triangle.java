@@ -40,7 +40,6 @@ public class Triangle extends Geometry {
     public List<Point3D> findIntersections(Ray ray) {
 
         // creating plane object out of triangle points
-
         Vector AB = this._p2.subtract(this._p1);
         Vector AC = this._p3.subtract(this._p1);
 
