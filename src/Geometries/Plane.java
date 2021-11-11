@@ -34,6 +34,8 @@ public class Plane extends Geometry {
     public void setNormal(Vector normal) {
         this._normal = normal.normalize();
     }
+
+    // DO NOT CONFUSE IT WITH THE ABSTRACT METHOD getNormal(Point3D)
     public Vector getNormal() {
         return this._normal;
     }
@@ -55,10 +57,17 @@ public class Plane extends Geometry {
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
-        return new ArrayList<Point3D>();
+        double t, numerator, denominator;
+        numerator = this._normal.dotProduct(this._point.subtract(ray.getP()));
+        denominator = this._normal.dotProduct(ray.getDirection());
+        t = numerator/denominator;
+        Point3D p = ray.getP().add(ray.getDirection().scale(t));
+        List<Point3D> points = new ArrayList<Point3D>();
+        points.add(p);
+        return points;
     }
     public Vector getNormal(Point3D point) {
-        return new Vector(1,1,1);
+        return this._normal.normalize();
     }
     // ==============================================
 
