@@ -18,6 +18,15 @@ public class Plane extends Geometry {
         this.calculateD();
     }
 
+    public Plane(Point3D A, Point3D B, Point3D C) {
+        Vector AB = B.subtract(A);
+        Vector AC = C.subtract(A);
+
+        this._point = A;
+        this._normal = AB.crossProduct(AC);
+        this.calculateD();
+    }
+
     public Plane(Plane other) {
         this._point = new Point3D(other.getPoint());
         this._normal = new Vector(other.getNormal());
@@ -58,22 +67,23 @@ public class Plane extends Geometry {
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
         if (ray.getP().equals(this._point)) {
-            throw new IllegalArgumentException("ray's point cannot be equal to plane's point");
+            return null;
         }
         List<Point3D> points = new ArrayList<Point3D>();
         double t, numerator, denominator;
         numerator = this._normal.dotProduct(this._point.subtract(ray.getP()));
         denominator = this._normal.dotProduct(ray.getDirection());
         if (numerator == 0 || denominator == 0) {
-            throw new IllegalArgumentException("Cannot be 0");
+            return null;
         }
         t = numerator/denominator;
 
-        // if t <= 0 return no points (empty list)
+        // if t <= 0 return no null
         if (t <= 0) {
-            return points;
+            return null;
         }
         Point3D p = ray.getP().add(ray.getDirection().scale(t));
+
         points.add(p);
         return points;
     }
@@ -101,15 +111,7 @@ public class Plane extends Geometry {
         Plane plane = (Plane) o;
 
         // Compare the data members and return accordingly
-        try {
-            if (this._normal.normalize().equals(plane.getNormal().normalize())) {
-                System.out.println("Might be parallel planes!");
-                throw new IllegalArgumentException();
-            }
-
-        }
-        catch (IllegalArgumentException e) {
-
+        if (this._normal.normalize().equals(plane.getNormal().normalize())) {
             // checking if the planes are the same plane
             double d = this.getD();
 
@@ -120,7 +122,7 @@ public class Plane extends Geometry {
             double x = plane.getPoint().getX().getCoordinate();
             double y = plane.getPoint().getY().getCoordinate();
             double z = plane.getPoint().getZ().getCoordinate();
-            return x*a + y*b + z*c + d == 0;
+            return x * a + y * b + z * c + d == 0;
         }
         return false;
     }
