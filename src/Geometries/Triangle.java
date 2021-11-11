@@ -2,8 +2,8 @@ package Geometries;
 
 import Primitives.Point3D;
 import Primitives.Ray;
+import Primitives.Ray.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Triangle extends Geometry {
@@ -38,10 +38,45 @@ public class Triangle extends Geometry {
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
-        return new ArrayList<Point3D>();
+
+        // creating plane object out of triangle points
+
+        Vector AB = this._p2.subtract(this._p1);
+        Vector AC = this._p3.subtract(this._p1);
+
+        // finding the intersection of ray and triangle's plane
+        Plane plane = new Plane(this._p1, AB.crossProduct(AC));
+        List<Point3D> points = plane.findIntersections(ray);
+
+        // Checking if the intersection point is inside the triangle
+        // create 3 planes - pyramid. then check if all signs are the same
+        Vector v1 = this._p1.subtract(ray.getP());
+        Vector v2 = this._p1.subtract(ray.getP());
+        Vector v3 = this._p1.subtract(ray.getP());
+
+        Vector n1 = v1.crossProduct(v2).normalize();
+        Vector n2 = v2.crossProduct(v3).normalize();
+        Vector n3 = v3.crossProduct(v1).normalize();
+
+        if (ray.getDirection().dotProduct(n1) > 0 &&
+               ray.getDirection().dotProduct(n2) > 0 &&
+                  ray.getDirection().dotProduct(n3) > 0) {
+            return points;
+        }
+        else if (ray.getDirection().dotProduct(n1) < 0 &&
+                ray.getDirection().dotProduct(n2) < 0 &&
+                ray.getDirection().dotProduct(n3) < 0) {
+            return points;
+        }
+        else {
+            points.clear();
+            return points;
+        }
     }
     public Ray.Vector getNormal(Point3D point) {
-        return new Ray.Vector(1,1,1);
+        Vector v1 = this._p2.subtract(this._p1);
+        Vector v2 = this._p3.subtract(this._p1);
+        return v1.crossProduct(v2).normalize();
     }
     // ==============================================
 

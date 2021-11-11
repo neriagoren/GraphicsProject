@@ -57,9 +57,15 @@ public class Plane extends Geometry {
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
+        if (ray.getP().equals(this._point)) {
+            throw new IllegalArgumentException("ray's point cannot be equal to plane's point");
+        }
         double t, numerator, denominator;
         numerator = this._normal.dotProduct(this._point.subtract(ray.getP()));
         denominator = this._normal.dotProduct(ray.getDirection());
+        if (numerator == 0 || denominator == 0) {
+            throw new IllegalArgumentException("Cannot be 0");
+        }
         t = numerator/denominator;
         Point3D p = ray.getP().add(ray.getDirection().scale(t));
         List<Point3D> points = new ArrayList<Point3D>();
