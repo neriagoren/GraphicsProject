@@ -46,7 +46,7 @@ public class Sphere extends Geometry {
         return new ArrayList<Point3D>();
     }
     public Ray.Vector getNormal(Point3D point) {
-        return new Ray.Vector(1,1,1);
+        return point.subtract(this._center).normalize();
     }
     // ==============================================
 
