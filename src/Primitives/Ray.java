@@ -54,7 +54,7 @@ public class Ray {
         }
 
         public double length() {
-            return this.dotProduct(this);
+            return Math.sqrt(this.dotProduct(this));
         }
 
         public Vector normalize() {
