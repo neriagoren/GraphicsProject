@@ -42,7 +42,12 @@ public class Point3D {
             Coordinate coordinate = (Coordinate) o;
 
             // Compare the data members and return accordingly
-            return Double.compare(this._coordinate, coordinate.getCoordinate()) == 0;
+
+            // IMPORTANT - comparing with accuracy of 8 decimal places.
+            double a = (double)Math.round(this._coordinate * 10000000d) /10000000d;
+            double b = (double)Math.round(coordinate.getCoordinate() * 10000000d) /10000000d;
+
+            return Double.compare(a,b) == 0;
         }
 
         @Override

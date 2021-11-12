@@ -59,7 +59,10 @@ public class Sphere extends Geometry {
         if (t2 > 0) {
             points.add(new Point3D(ray.getP().add(ray.getDirection().scale(t2))));
         }
-        return points;
+        if (points.size() > 0) {
+            return points;
+        }
+        return null;
     }
     public Ray.Vector getNormal(Point3D point) {
         return point.subtract(this._center).normalize();

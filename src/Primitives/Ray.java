@@ -123,14 +123,14 @@ public class Ray {
             // Compare the data members and return accordingly
             // using linear independence equations
 
-            double x = this._head.getX().getCoordinate();
-            double y = this._head.getY().getCoordinate();
-            double z = this._head.getZ().getCoordinate();
+            Point3D.Coordinate x = this._head.getX();
+            Point3D.Coordinate y = this._head.getY();
+            Point3D.Coordinate z = this._head.getZ();
 
-            double a = vector.getHead().getX().getCoordinate();
-            double b = vector.getHead().getY().getCoordinate();
-            double c = vector.getHead().getZ().getCoordinate();
-            return x == a && y == b && z == c;
+            Point3D.Coordinate a = vector.getHead().getX();
+            Point3D.Coordinate b = vector.getHead().getY();
+            Point3D.Coordinate c = vector.getHead().getZ();
+            return x.equals(a) && y.equals(b) && z.equals(c);
         }
 
         @Override

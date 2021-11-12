@@ -39,19 +39,15 @@ public class Triangle extends Geometry {
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
 
-        // creating plane object out of triangle points
-        Vector AB = this._p2.subtract(this._p1);
-        Vector AC = this._p3.subtract(this._p1);
-
         // finding the intersection of ray and triangle's plane
-        Plane plane = new Plane(this._p1, AB.crossProduct(AC));
+        Plane plane = new Plane(this._p1, this._p2, this._p3);
         List<Point3D> points = plane.findIntersections(ray);
 
         // Checking if the intersection point is inside the triangle
         // create 3 planes - pyramid. then check if all signs are the same
         Vector v1 = this._p1.subtract(ray.getP());
-        Vector v2 = this._p1.subtract(ray.getP());
-        Vector v3 = this._p1.subtract(ray.getP());
+        Vector v2 = this._p2.subtract(ray.getP());
+        Vector v3 = this._p3.subtract(ray.getP());
 
         Vector n1 = v1.crossProduct(v2).normalize();
         Vector n2 = v2.crossProduct(v3).normalize();
@@ -68,8 +64,7 @@ public class Triangle extends Geometry {
             return points;
         }
         else {
-            points.clear();
-            return points;
+            return null;
         }
     }
     public Ray.Vector getNormal(Point3D point) {

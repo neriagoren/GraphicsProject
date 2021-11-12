@@ -42,10 +42,49 @@ public class Polygon extends Geometry {
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
-        return new ArrayList<Point3D>();
+
+
+        // finding the intersection of ray and polygon's plane
+        Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2) );
+        List<Point3D> points = plane.findIntersections(ray);
+
+        int size = points.size();
+        List<Vector> vectors = new ArrayList<>();
+        List<Vector> normals = new ArrayList<>();
+
+        for (Point3D point : points) {
+            vectors.add(point.subtract(ray.getP()));
+        }
+
+        for (int i = 0; i < vectors.size()-1; i++) {
+            normals.add(vectors.get(i).crossProduct(vectors.get(i+1).normalize()));
+        }
+        normals.add(vectors.get(vectors.size()-1).crossProduct(vectors.get(0)));
+
+        double sign = normals.get(0).dotProduct(ray.getDirection());
+        if (sign == 0) {
+            return null;
+        }
+        else if (sign < 0) {
+            for (int i = 1; i < normals.size(); i++) {
+                if (normals.get(i).dotProduct(ray.getDirection()) > 0 || normals.get(i).dotProduct(ray.getDirection()) == 0) {
+                    return null;
+                }
+            }
+        }
+        else {
+            for (int i = 1; i < normals.size(); i++) {
+                if (normals.get(i).dotProduct(ray.getDirection()) < 0 || normals.get(i).dotProduct(ray.getDirection()) == 0) {
+                    return null;
+                }
+            }
+        }
+        return points;
     }
     public Vector getNormal(Point3D point) {
-        return new Vector(1,1,1);
+        Vector v1 = this._points.get(1).subtract(this._points.get(0));
+        Vector v2 = this._points.get(2).subtract(this._points.get(0));
+        return v1.crossProduct(v2).normalize();
     }
     // ==============================================
 

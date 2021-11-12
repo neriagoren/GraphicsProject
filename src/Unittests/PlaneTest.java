@@ -22,13 +22,13 @@ public class PlaneTest {
     }
 
 //    @Test
-//    public void testGetNormalPoint3D() {
-//        // ============ Equivalence Partitions Tests ==============
-//        // TC01: There is a simple single test here
-//        Plane pl = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
-//        double sqrt3 = Math.sqrt(1d / 3);
-//        assertEquals("Bad normal to plane", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
-//    }
+    public void testGetNormalPoint3D() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: There is a simple single test here
+        Plane pl = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
+        double sqrt3 = Math.sqrt(1d / 3);
+        assertEquals("Bad normal to plane", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+    }
 
     @Test
     public void testfindIntersectionsRay() {
@@ -55,13 +55,14 @@ public class PlaneTest {
 
 
         // TC13: Orthogonal ray into plane
-        // NOT WORKING BECAUSE OF DOUBLE ACCURACY!
-//        points.add( new Point3D(1d / 3, 1d / 3, 1d / 3));
-//        assertEquals("Bad plane intersection", points,
-//                pl.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(-1, -1, -1))));
-//        points.clear();
-        // TC14: Orthogonal ray out of plane
+         //NOT WORKING BECAUSE OF DOUBLE ACCURACY!
+        points.add( new Point3D(1d / 3, 1d / 3, 1d / 3));
+        assertEquals("Bad plane intersection", points,
+                pl.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(-1, -1, -1))));
+        points.clear();
 
+
+        // TC14: Orthogonal ray out of plane
         assertNull("Must not be plane intersection",
                 pl.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(1, 1, 1))));
 
