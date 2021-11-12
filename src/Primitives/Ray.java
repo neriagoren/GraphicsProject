@@ -54,10 +54,7 @@ public class Ray {
         }
 
         public double length() {
-            double x = Math.pow(this._head.getX().getCoordinate(), 2);
-            double y = Math.pow(this._head.getY().getCoordinate(), 2);
-            double z = Math.pow(this._head.getZ().getCoordinate(), 2);
-            return Math.sqrt(x + y + z);
+            return this.dotProduct(this);
         }
 
         public Vector normalize() {

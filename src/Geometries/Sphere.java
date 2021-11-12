@@ -45,24 +45,32 @@ public class Sphere extends Geometry {
     public List<Point3D> findIntersections(Ray ray) {
 
         List<Point3D> points = new ArrayList<>();
-        Ray.Vector u = this._center.subtract(ray.getP());
-        double tm = ray.getDirection().dotProduct(u);
-        double uLength = this._center.distance(ray.getP());
-        double d = Math.sqrt(Math.pow(uLength,2) - Math.pow(tm,2));
-        double th = Math.sqrt(Math.pow(this._radius,2) - Math.pow(d,2));
-        double t1 = tm + th;
-        double t2 = tm - th;
 
-        if (t1 > 0) {
-            points.add(new Point3D(ray.getP().add(ray.getDirection().scale(t1))));
+        Point3D P;
+        Point3D D = ray.getP();
+        Ray.Vector E = ray.getDirection();
+        double u1, u2;
+
+
+        double a = E.dotProduct(E);
+        double b = 2*E.dotProduct(D.subtract(this._center));
+        double c = D.subtract(this._center).dotProduct(D.subtract(this._center)) - Math.pow(this._radius,2);
+
+        double discriminant = Math.pow(b, 2) - 4*a*c;
+        System.out.println("Discriminant: " + discriminant);
+        if (discriminant < 0) {
+            return null;
         }
-        if (t2 > 0) {
-            points.add(new Point3D(ray.getP().add(ray.getDirection().scale(t2))));
+        else if (discriminant == 0) {
+            return null;
         }
-        if (points.size() > 0) {
-            return points;
+        else {
+            u1 = (-b + Math.sqrt(discriminant))/(2*a);
+            u2 = (-b - Math.sqrt(discriminant))/(2*a);
+            System.out.println("u1: " + u1 + ", u2: " + u2);
+            return null;
         }
-        return null;
+
     }
     public Ray.Vector getNormal(Point3D point) {
         return point.subtract(this._center).normalize();
