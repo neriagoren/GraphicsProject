@@ -58,12 +58,11 @@ public class Camera {
 
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
         Point3D pc = this._P0.add(this._vto.scale(screenDistance));
+        Point3D pij;
         double rY = screenHeight / nY;
         double rX = screenWidth / nX;
         double xj = (j - (double)nX/2)*rX + rX/2;
         double yi = (i - (double)nY/2)*rY + rY/2;
-
-        Point3D pij = pc.add(this._vright.scale(xj).subtract(this._vup.scale(yi)));
 
         if (xj == 0 || yi == 0) {
             pij = pc;
@@ -74,7 +73,9 @@ public class Camera {
                 pij = pij.add(this._vup.scale(-yi));
             }
         }
-
+        else {
+            pij = pc.add(this._vright.scale(xj).subtract(this._vup.scale(yi)));
+        }
         Vector vij = pij.subtract(this._P0);
 
         return new Ray(new Point3D(this._P0), new Vector(vij).normalize());
