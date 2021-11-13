@@ -44,33 +44,79 @@ public class Sphere extends Geometry {
     // ==============================================
     public List<Point3D> findIntersections(Ray ray) {
 
+        // ------------------------------------------------------------------------------------------------------------- //
+        // This method is implemented using the instructions at: http://cosinekitty.com/raytrace/chapter06_sphere.html   //
+        // ------------------------------------------------------------------------------------------------------------- //
+
         List<Point3D> points = new ArrayList<>();
 
-        Point3D P;
-        Point3D D = ray.getP();
-        Ray.Vector E = ray.getDirection();
-        double u1, u2;
+        Point3D p0 = ray.getP();
+        Ray.Vector v = ray.getDirection();
+        Point3D C = this._center;
+        double R = this._radius;
 
+        // The scalars we need to find
+        double t1, t2;
 
-        double a = E.dotProduct(E);
-        double b = 2*E.dotProduct(D.subtract(this._center));
-        double c = D.subtract(this._center).dotProduct(D.subtract(this._center)) - Math.pow(this._radius,2);
-
+        // Creating the discriminant
+        double a = v.dotProduct(v);
+        double b = 2*v.dotProduct(p0.subtract(this._center));
+        double c = p0.subtract(this._center).dotProduct(p0.subtract(this._center)) - Math.pow(this._radius,2);
         double discriminant = Math.pow(b, 2) - 4*a*c;
-        System.out.println("Discriminant: " + discriminant);
-        if (discriminant < 0) {
-            return null;
-        }
-        else if (discriminant == 0) {
-            return null;
-        }
-        else {
-            u1 = (-b + Math.sqrt(discriminant))/(2*a);
-            u2 = (-b - Math.sqrt(discriminant))/(2*a);
-            System.out.println("u1: " + u1 + ", u2: " + u2);
+
+        // if discriminant = 0 it means that Ray is tangent with the Sphere
+        if (discriminant <=0) {
             return null;
         }
 
+        t1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        t2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+
+        // if both u1,u2 <= 0, it means that the Sphere is behind Ray or Ray starts on Sphere toward outside
+        if (t1 <= 0 && t2 <= 0) {
+            return null;
+        }
+
+        // Ray starts from outside of Sphere
+        if (p0.distance(C) > R) {
+            if (t1 > 0) {
+                // append point
+                points.add(new Point3D(p0.add(v.scale(t1))));
+
+            }
+            if (t2 > 0) {
+                // append point
+                points.add(new Point3D(p0.add(v.scale(t2))));
+            }
+            return points;
+        }
+        // Ray start from inside of Sphere
+        else if (p0.distance(C) < R) {
+            if (t1 > 0) {
+                // append point
+                points.add(new Point3D(p0.add(v.scale(t1))));
+                return points;
+            }
+            if (t2 > 0) {
+                // append point
+                points.add(new Point3D(p0.add(v.scale(t2))));
+                return points;
+            }
+        }
+        // Ray starts on Sphere's surface
+        else {
+            if (t1 > 0) {
+                // append point
+                points.add(new Point3D(p0.add(v.scale(t1))));
+                return points;
+            }
+            if (t2 > 0) {
+                // append point
+                points.add(new Point3D(p0.add(v.scale(t2))));
+                return points;
+            }
+        }
+        return null;
     }
     public Ray.Vector getNormal(Point3D point) {
         return point.subtract(this._center).normalize();
