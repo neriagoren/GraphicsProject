@@ -95,9 +95,6 @@ class testImageWriter {
         imageWriter.writePixel(22, 4, new Color(255,255,255));
         imageWriter.writePixel(23, 4, new Color(255,255,255));
         imageWriter.writePixel(24, 4, new Color(255,255,255));
-
-
-
         imageWriter.writePixel(0, 5, new Color(255,255,255));
         imageWriter.writePixel(1, 5, new Color(255,255,255));
         imageWriter.writePixel(2, 5, new Color(255,255,255));
@@ -108,7 +105,6 @@ class testImageWriter {
         imageWriter.writePixel(7, 5, new Color(114, 134, 65));
         imageWriter.writePixel(8, 5, new Color(98, 121, 39));
         imageWriter.writePixel(9, 5, new Color(78, 98, 26));
-
         imageWriter.writePixel(10, 5, new Color(159,169,54));
         imageWriter.writePixel(11, 5, new Color(188,190,65));
         imageWriter.writePixel(12, 5, new Color(224,231,65));
@@ -118,14 +114,12 @@ class testImageWriter {
         imageWriter.writePixel(16, 5, new Color(196,199,84));
         imageWriter.writePixel(17, 5, new Color(196,199,84));
         imageWriter.writePixel(18, 5, new Color(196,199,84));
-
         imageWriter.writePixel(19, 5, new Color(252, 248, 249));
         imageWriter.writePixel(20, 5, new Color(169, 186, 74));
         imageWriter.writePixel(21, 5, new Color(174, 183, 28));
         imageWriter.writePixel(22, 5, new Color(235, 238, 133));
         imageWriter.writePixel(23, 5, new Color(255,255,255));
         imageWriter.writePixel(24, 5, new Color(255,255,255));
-
         imageWriter.writePixel(0, 6, new Color(255,255,255));
         imageWriter.writePixel(1, 6, new Color(255,255,255));
         imageWriter.writePixel(2, 6, new Color(255,255,255));
@@ -136,7 +130,6 @@ class testImageWriter {
         imageWriter.writePixel(7, 6, new Color(202, 216, 69));
         imageWriter.writePixel(8, 6, new Color(209, 217, 82));
         imageWriter.writePixel(9, 6, new Color(134, 135, 55));
-
         imageWriter.writePixel(10, 6, new Color(131, 127, 53));
         imageWriter.writePixel(11, 6, new Color(117, 119, 44));
         imageWriter.writePixel(12, 6, new Color(165, 174, 59));
@@ -146,23 +139,19 @@ class testImageWriter {
         imageWriter.writePixel(16, 6, new Color(68, 57, 35));
         imageWriter.writePixel(17, 6, new Color(138, 145, 67));
         imageWriter.writePixel(18, 6, new Color(198, 218, 33));
-
         imageWriter.writePixel(19, 6, new Color(166, 182, 75));
         imageWriter.writePixel(20, 6, new Color(252, 254, 243));
         imageWriter.writePixel(21, 6, new Color(248, 250, 237));
         imageWriter.writePixel(22, 6, new Color(243, 245, 231));
         imageWriter.writePixel(23, 6, new Color(255,255,255));
         imageWriter.writePixel(24, 6, new Color(255,255,255));
-
         i = 7;
-
         imageWriter.writePixel(0, i, new Color(255,255,255));
         imageWriter.writePixel(1, i, new Color(255,255,255));
         imageWriter.writePixel(2, i, new Color(255,255,255));
         imageWriter.writePixel(3, i, new Color(255,255,255));
         imageWriter.writePixel(4, i, new Color(255,255,255));
         imageWriter.writePixel(5, i, new Color(207, 215, 174));
-
         imageWriter.writePixel(6, i, new Color(130, 153, 47));
         imageWriter.writePixel(7, i, new Color(130, 153, 47));
         imageWriter.writePixel(8, i, new Color(178, 189, 48));
@@ -182,9 +171,7 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(255,255,255));
         imageWriter.writePixel(23, i, new Color(255,255,255));
         imageWriter.writePixel(24, i, new Color(255,255,255));
-
         i = 8;
-
         imageWriter.writePixel(0, i, new Color(255,255,255));
         imageWriter.writePixel(1, i, new Color(255,255,255));
         imageWriter.writePixel(2, i, new Color(255,255,255));
@@ -202,7 +189,6 @@ class testImageWriter {
         imageWriter.writePixel(14, i, new Color(155, 165, 66));
         imageWriter.writePixel(15, i, new Color(76, 96, 27));
         imageWriter.writePixel(16, i, new Color(156, 163, 31));
-
         imageWriter.writePixel(17, i, new Color(196,199,84));
         imageWriter.writePixel(18, i, new Color(196,199,84));
         imageWriter.writePixel(19, i, new Color(211, 219, 72));
@@ -211,9 +197,7 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(255,255,255));
         imageWriter.writePixel(23, i, new Color(255,255,255));
         imageWriter.writePixel(24, i, new Color(255,255,255));
-
         i = 9;
-
         imageWriter.writePixel(0, i, new Color(255,255,255));
         imageWriter.writePixel(1, i, new Color(255,255,255));
         imageWriter.writePixel(2, i, new Color(255,255,255));
@@ -221,7 +205,6 @@ class testImageWriter {
         imageWriter.writePixel(4, i, new Color(255,255,255));
         imageWriter.writePixel(5, i, new Color(96, 116, 45));
         imageWriter.writePixel(6, i, new Color(170, 190, 57));
-
         imageWriter.writePixel(7, i, new Color(188, 196, 48));
         imageWriter.writePixel(8, i, new Color(157, 162, 36));
         imageWriter.writePixel(9, i, new Color(128,152,64));
@@ -234,17 +217,13 @@ class testImageWriter {
         imageWriter.writePixel(16, i, new Color(196,199,84));
         imageWriter.writePixel(17, i, new Color(196,199,84));
         imageWriter.writePixel(18, i, new Color(196,199,84));
-
         imageWriter.writePixel(19, i, new Color(205, 211, 87));
         imageWriter.writePixel(20, i, new Color(255,255,255));
         imageWriter.writePixel(21, i, new Color(255,255,255));
         imageWriter.writePixel(22, i, new Color(255,255,255));
         imageWriter.writePixel(23, i, new Color(255,255,255));
         imageWriter.writePixel(24, i, new Color(255,255,255));
-
-        // DONE 10
         i = 10;
-
         imageWriter.writePixel(0, i, new Color(246, 247, 242));
         imageWriter.writePixel(1, i, new Color(223, 215, 202));
         imageWriter.writePixel(2, i, new Color(217, 206, 188));
@@ -270,27 +249,22 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(255,255,255));
         imageWriter.writePixel(23, i, new Color(255,255,255));
         imageWriter.writePixel(24, i, new Color(255,255,255));
-
         i = 11;
-
         imageWriter.writePixel(0, i, new Color(93, 82, 64));
         imageWriter.writePixel(1, i, new Color(93, 82, 64));
         imageWriter.writePixel(2, i, new Color(107, 95, 79));
         imageWriter.writePixel(3, i, new Color(37, 25, 13));
         imageWriter.writePixel(4, i, new Color(27, 18, 9));
         imageWriter.writePixel(5, i, new Color(76, 89, 36));
-
         imageWriter.writePixel(6, i, new Color(83, 103, 40));
         imageWriter.writePixel(7, i, new Color(134, 160, 53));
         imageWriter.writePixel(8, i, new Color(159, 182, 52));
         imageWriter.writePixel(9, i, new Color(162, 176, 55));
         imageWriter.writePixel(10, i, new Color(168, 182, 61));
         imageWriter.writePixel(11, i, new Color(168, 182, 61));
-
         imageWriter.writePixel(12, i, new Color(173, 185, 51));
         imageWriter.writePixel(13, i, new Color(179, 198, 56));
         imageWriter.writePixel(14, i, new Color(188, 211, 43));
-
         imageWriter.writePixel(15, i, new Color(195, 212, 44));
         imageWriter.writePixel(16, i, new Color(208, 224, 40));
         imageWriter.writePixel(17, i, new Color(211, 223, 39));
@@ -301,24 +275,20 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(255,255,255));
         imageWriter.writePixel(23, i, new Color(255,255,255));
         imageWriter.writePixel(24, i, new Color(255,255,255));
-
         i = 12;
         imageWriter.writePixel(0, i, new Color(69, 62, 54));
         imageWriter.writePixel(1, i, new Color(19, 12, 4));
         imageWriter.writePixel(2, i, new Color(41, 34, 24));
         imageWriter.writePixel(3, i, new Color(35, 28, 18));
         imageWriter.writePixel(4, i, new Color(43, 39, 30));
-
         imageWriter.writePixel(5, i, new Color(76, 89, 36));
         imageWriter.writePixel(6, i, new Color(83, 103, 40));
         imageWriter.writePixel(7, i, new Color(134, 160, 53));
         imageWriter.writePixel(8, i, new Color(159, 182, 52));
         imageWriter.writePixel(9, i, new Color(162, 176, 55));
-
         imageWriter.writePixel(10, i, new Color(200, 209, 38));
         imageWriter.writePixel(11, i, new Color(225, 227, 30));
         imageWriter.writePixel(12, i, new Color(241, 241, 119));
-
         imageWriter.writePixel(13, i, new Color(179, 198, 56));
         imageWriter.writePixel(14, i, new Color(216,222,54));
         imageWriter.writePixel(15, i, new Color(217,224,59));
@@ -326,16 +296,12 @@ class testImageWriter {
         imageWriter.writePixel(17, i, new Color(196,199,84));
         imageWriter.writePixel(18, i, new Color(196,199,84));
         imageWriter.writePixel(19, i, new Color(196,199,84));
-
         imageWriter.writePixel(20, i, new Color(146, 133, 81));
         imageWriter.writePixel(21, i, new Color(120, 100, 76));
         imageWriter.writePixel(22, i, new Color(153, 131, 108));
         imageWriter.writePixel(23, i, new Color(110, 89, 84));
         imageWriter.writePixel(24, i, new Color(246, 247, 242));
-
-        // DONE 13
         i = 13;
-
         imageWriter.writePixel(0, i, new Color(35, 29, 15));
         imageWriter.writePixel(1, i, new Color(43, 39, 30));
         imageWriter.writePixel(2, i, new Color(24, 18, 6));
@@ -361,8 +327,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(117, 102, 69));
         imageWriter.writePixel(23, i, new Color(115, 111, 99));
         imageWriter.writePixel(24, i, new Color(192, 188, 176));
-
-        // DONE
         i=14;
         imageWriter.writePixel(0, i, new Color(40, 33, 23));
         imageWriter.writePixel(1, i, new Color(52, 45, 35));
@@ -389,8 +353,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(131, 115, 100));
         imageWriter.writePixel(23, i, new Color(107, 101, 89));
         imageWriter.writePixel(24, i, new Color(148, 142, 130));
-
-        // DONE 15
         i=15;
         imageWriter.writePixel(0, i, new Color(38, 33, 29));
         imageWriter.writePixel(1, i, new Color(15, 10, 6));
@@ -417,10 +379,7 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(95, 79, 64));
         imageWriter.writePixel(23, i, new Color(106, 100, 88));
         imageWriter.writePixel(24, i, new Color(139, 133, 121));
-
-        // DONE 16
         i= 16;
-
         imageWriter.writePixel(0, i, new Color(23, 14, 5));
         imageWriter.writePixel(1, i, new Color(62, 53, 46));
         imageWriter.writePixel(2, i, new Color(62, 52, 43));
@@ -446,10 +405,7 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(65, 58, 42));
         imageWriter.writePixel(23, i, new Color(84, 78, 66));
         imageWriter.writePixel(24, i, new Color(93, 87, 75));
-
-        // DONE 17
         i = 17;
-
         imageWriter.writePixel(0, i, new Color(95, 85, 75));
         imageWriter.writePixel(1, i, new Color(28, 18, 8));
         imageWriter.writePixel(2, i, new Color(49, 39, 29));
@@ -475,8 +431,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(36, 29, 19));
         imageWriter.writePixel(23, i, new Color(52, 49, 34));
         imageWriter.writePixel(24, i, new Color(79, 76, 59));
-
-        //DONE 18
         i = 18;
         imageWriter.writePixel(0, i, new Color(76, 66, 57));
         imageWriter.writePixel(1, i, new Color(83, 73, 64));
@@ -503,8 +457,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(21, 13, 10));
         imageWriter.writePixel(23, i, new Color(30, 26, 17));
         imageWriter.writePixel(24, i, new Color(52, 48, 39));
-
-        // DONE 19
         i = 19;
         imageWriter.writePixel(0, i, new Color(74, 65, 56));
         imageWriter.writePixel(1, i, new Color(74, 64, 54));
@@ -531,8 +483,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(33, 21, 7));
         imageWriter.writePixel(23, i, new Color(22, 21, 17));
         imageWriter.writePixel(24, i, new Color(24, 23, 19));
-
-        // DONE 20
         i = 20;
         imageWriter.writePixel(0, i, new Color(56, 52, 41));
         imageWriter.writePixel(1, i, new Color(29, 25, 16));
@@ -559,8 +509,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(124, 107, 91));
         imageWriter.writePixel(23, i, new Color(28, 21, 5));
         imageWriter.writePixel(24, i, new Color(27, 29, 18));
-
-        // DONE 21
         i = 21;
         imageWriter.writePixel(0, i, new Color(119, 113, 91));
         imageWriter.writePixel(1, i, new Color(114, 107, 88));
@@ -587,10 +535,7 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(84, 66, 42));
         imageWriter.writePixel(23, i, new Color(140, 129, 109));
         imageWriter.writePixel(24, i, new Color(37, 39, 28));
-
-        // DONE 22
         i = 22;
-
         imageWriter.writePixel(0, i, new Color(117, 108, 91));
         imageWriter.writePixel(1, i, new Color(119, 111, 90));
         imageWriter.writePixel(2, i, new Color(146, 139, 111));
@@ -616,8 +561,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(68, 61, 45));
         imageWriter.writePixel(23, i, new Color(154, 156, 145));
         imageWriter.writePixel(24, i, new Color(255,255,255));
-
-        // DONE 23
         i = 23;
         imageWriter.writePixel(0, i, new Color(83, 77, 65));
         imageWriter.writePixel(1, i, new Color(95, 90, 71));
@@ -644,8 +587,6 @@ class testImageWriter {
         imageWriter.writePixel(22, i, new Color(162, 157, 135));
         imageWriter.writePixel(23, i, new Color(121, 120, 100));
         imageWriter.writePixel(24, i, new Color(246, 247, 242));
-
-        // DONE 24
         i = 24;
         imageWriter.writePixel(0, i, new Color(83, 77, 65));
         imageWriter.writePixel(1, i, new Color(95, 90, 71));
@@ -674,8 +615,5 @@ class testImageWriter {
         imageWriter.writePixel(24, i, new Color(95, 96, 88));
 
         imageWriter.writeToImage();
-
-
-
     }
 }
