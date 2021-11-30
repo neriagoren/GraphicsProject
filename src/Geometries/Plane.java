@@ -4,6 +4,7 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Ray.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,25 +13,28 @@ public class Plane extends Geometry {
     private Vector _normal;
     private double _d;
 
-    public Plane(Point3D point, Vector normal) {
+    public Plane(Point3D point, Vector normal, Color color) {
         this._point = point;
         this._normal = normal;
         this.calculateD();
+        this.setEmission(color);
     }
 
-    public Plane(Point3D A, Point3D B, Point3D C) {
+    public Plane(Point3D A, Point3D B, Point3D C, Color color) {
         Vector AB = B.subtract(A);
         Vector AC = C.subtract(A);
 
         this._point = A;
         this._normal = AB.crossProduct(AC);
         this.calculateD();
+        this.setEmission(color);
     }
 
     public Plane(Plane other) {
         this._point = new Point3D(other.getPoint());
         this._normal = new Vector(other.getNormal());
         this._d = other._d;
+        this.setEmission(other.getEmission());
     }
 
     public void setPoint(Point3D point) {
@@ -122,13 +126,14 @@ public class Plane extends Geometry {
             double x = plane.getPoint().getX().getCoordinate();
             double y = plane.getPoint().getY().getCoordinate();
             double z = plane.getPoint().getZ().getCoordinate();
-            return x * a + y * b + z * c + d == 0;
+            return x * a + y * b + z * c + d == 0 && this.getEmission().equals(plane.getEmission());
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return "Plane\n" + "Point: " + this._point.toString() + ", Normal: " + this._normal.toString();
+        return "Plane\n" + "Point: " + this._point.toString() + ", Normal: " + this._normal.toString()
+                + ", Color: " + this.getEmission().toString();
     }
 }

@@ -3,6 +3,7 @@ package Geometries;
 import Primitives.Point3D;
 import Primitives.Ray;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +15,19 @@ public class Sphere extends Geometry {
     public Sphere() {
         this._center = new Point3D(0,0,0);
         this._radius = 1;
+        this.setEmission(Color.BLACK);
     }
 
-    public Sphere(Point3D center, double radius) {
+    public Sphere(Point3D center, double radius, Color color) {
         this._center = center;
         this._radius = radius;
+        this.setEmission(color);
     }
 
     public Sphere(Sphere sphere) {
         this._center = new Point3D(sphere.getCenter());
         this._radius = sphere.getRadius();
+        this.setEmission(sphere.getEmission());
     }
 
     public void setCenter(Point3D center) {
@@ -142,11 +146,13 @@ public class Sphere extends Geometry {
         Sphere sphere = (Sphere) o;
 
         // Compare the data members and return accordingly
-        return this._center.equals(sphere.getCenter()) && this._radius == sphere.getRadius();
+        return this._center.equals(sphere.getCenter()) && this._radius == sphere.getRadius()
+                && this.getEmission().equals(sphere.getEmission());
     }
 
     @Override
     public String toString() {
-        return "Sphere\nCenter: " + this._center.toString() + ", Radius: " + this._radius;
+        return "Sphere\nCenter: " + this._center.toString() + ", Radius: " + this._radius
+                + ", Color: " + this.getEmission().toString();
     }
 }

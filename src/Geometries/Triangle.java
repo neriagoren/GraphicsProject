@@ -4,6 +4,7 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Ray.Vector;
 
+import java.awt.*;
 import java.util.List;
 
 public class Triangle extends Geometry {
@@ -11,16 +12,18 @@ public class Triangle extends Geometry {
     private Point3D _p2;
     private Point3D _p3;
 
-    public Triangle(Point3D A, Point3D B, Point3D C) {
+    public Triangle(Point3D A, Point3D B, Point3D C, Color color) {
         this._p1 = A;
         this._p2 = B;
         this._p3 = C;
+        this.setEmission(color);
     }
 
     public Triangle(Triangle other) {
         this._p1 = new Point3D(other.getP1());
         this._p2 = new Point3D(other.getP2());
         this._p3 = new Point3D(other.getP3());
+        this.setEmission(other.getEmission());
     }
 
     // add set methods here - with checks for duplicated points
@@ -40,7 +43,7 @@ public class Triangle extends Geometry {
     public List<Point3D> findIntersections(Ray ray) {
 
         // finding the intersection of ray and triangle's plane
-        Plane plane = new Plane(this._p1, this._p2, this._p3);
+        Plane plane = new Plane(this._p1, this._p2, this._p3, Color.BLACK);
         List<Point3D> points = plane.findIntersections(ray);
 
         // Checking if the intersection point is inside the triangle
@@ -118,11 +121,12 @@ public class Triangle extends Geometry {
                 return false;
             }
         }
-        return true;
+        return this.getEmission().equals(triangle.getEmission());
     }
 
     @Override
     public String toString() {
-        return "Triangle\n" + this._p1.toString() + " " + this._p2.toString() + " " + this._p3.toString();
+        return "Triangle\n" + this._p1.toString() + " " + this._p2.toString() + " "
+                + this._p3.toString() + ", Color: " + this.getEmission().toString();
     }
 }

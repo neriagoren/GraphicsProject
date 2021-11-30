@@ -4,6 +4,7 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Ray.Vector;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Polygon extends Geometry {
     // minimum 3 points for polygon!
     // check if they are all on same plane!
 
-    public Polygon(List<Point3D> points) {
+    public Polygon(List<Point3D> points, Color color) {
         try {
             if (points.size() < 3) {
                 throw new Exception("must be at least 3 points");
@@ -23,6 +24,7 @@ public class Polygon extends Geometry {
                 // then assign it to class member - plane
                 if(!isAllPointsOnPlane(points)) {
                     this._points = points;
+                    this.setEmission(color);
                 }
                 else {
                     throw new Exception("3 points are on same line");
@@ -37,6 +39,7 @@ public class Polygon extends Geometry {
         for (int i = 0; i < other.getPoints().size(); i++) {
             this._points.add(new Point3D(other.getPoints().get(i)));
         }
+        this.setEmission(other.getEmission());
     }
 
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
@@ -45,7 +48,7 @@ public class Polygon extends Geometry {
 
 
         // finding the intersection of ray and polygon's plane
-        Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2) );
+        Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2), Color.BLACK );
         List<Point3D> points = plane.findIntersections(ray);
 
         int size = points.size();
@@ -118,7 +121,7 @@ public class Polygon extends Geometry {
             Vector normal = new Vector(points.get(1).subtract(points.get(0))).crossProduct(new Vector(points.get(2).subtract(points.get(0))));
 
             // if the polygon is valid then plane is assigned to class member.
-            Plane plane = new Plane(points.get(0), normal);
+            Plane plane = new Plane(points.get(0), normal, Color.BLACK);
             double d = plane.getD();
 
             double a = normal.getHead().getX().getCoordinate();
@@ -171,7 +174,7 @@ public class Polygon extends Geometry {
                 return false;
             }
         }
-        return true;
+        return this.getEmission().equals(polygon.getEmission());
     }
 
     @Override
@@ -182,7 +185,7 @@ public class Polygon extends Geometry {
             polygon += point.toString();
             polygon += " ";
         }
-
+        polygon += ", Color: " + this.getEmission().toString();
         return polygon;
     }
 }

@@ -6,6 +6,7 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,22 +16,22 @@ public class TriangleTest {
 
     @Test
     public void testEqualTriangles() {
-        Triangle t1 = new Triangle(new Point3D(1,1,1), new Point3D(2,2,2), new Point3D(3,3,3));
-        Triangle t2 = new Triangle(new Point3D(2,2,2), new Point3D(1,1,1), new Point3D(3,3,3));
-        assertTrue("Not equal",t1.equals(t2));
+        Triangle t1 = new Triangle(new Point3D(1,1,1), new Point3D(2,2,2), new Point3D(3,3,3), Color.BLACK);
+        Triangle t2 = new Triangle(new Point3D(2,2,2), new Point3D(1,1,1), new Point3D(3,3,3), Color.BLACK);
+        assertEquals("Not equal", t1, t2);
     }
     @Test
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        Triangle pl = new Triangle(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
+        Triangle pl = new Triangle(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), Color.BLACK);
         double sqrt3 = Math.sqrt(1d / 3);
         assertEquals("Bad normal to triangle", new Ray.Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
     }
     @Test
     public void testFindIntersectionsRay() {
-        Triangle tr = new Triangle(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
-        Plane pl = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
+        Triangle tr = new Triangle(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), Color.BLACK);
+        Plane pl = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), Color.BLACK);
         Ray ray;
         List<Point3D> points = new ArrayList<>();
 
