@@ -28,12 +28,17 @@ public class GeoPoint {
         point = point2;
     }
 
+    public GeoPoint(GeoPoint point) {
+        this.geometry = point.getGeometry();
+        this.point = point.getPoint();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (this == obj) return true;
         if (!(obj instanceof GeoPoint)) return false;
         GeoPoint oth = (GeoPoint)obj;
-        return this.geometry == oth.geometry && this.point.equals(oth.point);
+        return this.geometry.equals(oth.geometry) && this.point.equals(oth.point);
     }
 }

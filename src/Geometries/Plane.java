@@ -69,11 +69,11 @@ public class Plane extends Geometry {
 
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         if (ray.getP().equals(this._point)) {
             return null;
         }
-        List<Point3D> points = new ArrayList<Point3D>();
+        List<GeoPoint> points = new ArrayList<>();
         double t, numerator, denominator;
         numerator = this._normal.dotProduct(this._point.subtract(ray.getP()));
         denominator = this._normal.dotProduct(ray.getDirection());
@@ -88,7 +88,7 @@ public class Plane extends Geometry {
         }
         Point3D p = ray.getP().add(ray.getDirection().scale(t));
 
-        points.add(p);
+        points.add(new GeoPoint(this, p));
         return points;
     }
     public Vector getNormal(Point3D point) {

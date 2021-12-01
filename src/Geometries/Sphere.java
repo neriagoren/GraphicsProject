@@ -46,13 +46,13 @@ public class Sphere extends Geometry {
 
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
 
         // ------------------------------------------------------------------------------------------------------------- //
         // This method is implemented using the instructions at: http://cosinekitty.com/raytrace/chapter06_sphere.html   //
         // ------------------------------------------------------------------------------------------------------------- //
 
-        List<Point3D> points = new ArrayList<>();
+        List<GeoPoint> points = new ArrayList<>();
 
         Point3D p0 = ray.getP();
         Ray.Vector v = ray.getDirection();
@@ -85,12 +85,12 @@ public class Sphere extends Geometry {
         if (p0.distance(C) > R) {
             if (t1 > 0) {
                 // append point
-                points.add(new Point3D(p0.add(v.scale(t1))));
+                points.add(new GeoPoint(this, p0.add(v.scale(t1))));
 
             }
             if (t2 > 0) {
                 // append point
-                points.add(new Point3D(p0.add(v.scale(t2))));
+                points.add(new GeoPoint(this, p0.add(v.scale(t2))));
             }
             return points;
         }
@@ -98,12 +98,12 @@ public class Sphere extends Geometry {
         else if (p0.distance(C) < R) {
             if (t1 > 0) {
                 // append point
-                points.add(new Point3D(p0.add(v.scale(t1))));
+                points.add(new GeoPoint(this, p0.add(v.scale(t1))));
                 return points;
             }
             if (t2 > 0) {
                 // append point
-                points.add(new Point3D(p0.add(v.scale(t2))));
+                points.add(new GeoPoint(this, p0.add(v.scale(t2))));
                 return points;
             }
         }
@@ -111,12 +111,12 @@ public class Sphere extends Geometry {
         else {
             if (t1 > 0) {
                 // append point
-                points.add(new Point3D(p0.add(v.scale(t1))));
+                points.add(new GeoPoint(this, p0.add(v.scale(t1))));
                 return points;
             }
             if (t2 > 0) {
                 // append point
-                points.add(new Point3D(p0.add(v.scale(t2))));
+                points.add(new GeoPoint(this, p0.add(v.scale(t2))));
                 return points;
             }
         }

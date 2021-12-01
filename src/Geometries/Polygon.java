@@ -5,7 +5,6 @@ import Primitives.Ray;
 import Primitives.Ray.Vector;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Polygon extends Geometry {
@@ -21,13 +20,12 @@ public class Polygon extends Geometry {
             }
             else {
                 // the method isAllPointsOnPlane calculates also the plane of the polygon
-                // then assign it to class member - plane
-                if(!isAllPointsOnPlane(points)) {
+                if(isAllPointsOnPlane(points)) {
                     this._points = points;
                     this.setEmission(color);
                 }
                 else {
-                    throw new Exception("3 points are on same line");
+                    throw new Exception("Error initializing polygon");
                 }
             }
         } catch (Exception e) {
@@ -44,46 +42,28 @@ public class Polygon extends Geometry {
 
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
 
+        // Polygon ray intersection is complicated!
+        // Therefore i make triangles for each 3 points of polygon
+        // and check if the intersection point is inside it.
 
-        // finding the intersection of ray and polygon's plane
-        Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2), Color.BLACK );
-        List<Point3D> points = plane.findIntersections(ray);
-
-        int size = points.size();
-        List<Vector> vectors = new ArrayList<>();
-        List<Vector> normals = new ArrayList<>();
-
-        for (Point3D point : points) {
-            vectors.add(point.subtract(ray.getP()));
-        }
-
-        for (int i = 0; i < vectors.size()-1; i++) {
-            normals.add(vectors.get(i).crossProduct(vectors.get(i+1).normalize()));
-        }
-        normals.add(vectors.get(vectors.size()-1).crossProduct(vectors.get(0)));
-
-        double sign = normals.get(0).dotProduct(ray.getDirection());
-        if (sign == 0) {
-            return null;
-        }
-        else if (sign < 0) {
-            for (int i = 1; i < normals.size(); i++) {
-                if (normals.get(i).dotProduct(ray.getDirection()) > 0 || normals.get(i).dotProduct(ray.getDirection()) == 0) {
-                    return null;
+        for (Point3D A : _points) {
+            for (Point3D B : _points) {
+                for (Point3D C : _points) {
+                    if (!A.equals(B) && !A.equals(C) && !B.equals(C)) {
+                        Triangle triangle = new Triangle(A,B,C, this._emission);
+                        List<GeoPoint> points = triangle.findIntersections(ray);
+                        if (points != null) {
+                            return points;
+                        }
+                    }
                 }
             }
         }
-        else {
-            for (int i = 1; i < normals.size(); i++) {
-                if (normals.get(i).dotProduct(ray.getDirection()) < 0 || normals.get(i).dotProduct(ray.getDirection()) == 0) {
-                    return null;
-                }
-            }
-        }
-        return points;
+        return null;
     }
+
     public Vector getNormal(Point3D point) {
         Vector v1 = this._points.get(1).subtract(this._points.get(0));
         Vector v2 = this._points.get(2).subtract(this._points.get(0));
@@ -97,50 +77,28 @@ public class Polygon extends Geometry {
         return this._points;
     }
 
-    public boolean arePointsOnLine(List<Point3D> points) {
-
-        for (Point3D point1 : points) {
-            for (Point3D point2 : points) {
-                for (Point3D point3 : points) {
-                    if (!(point1.equals(point2)) &&  !(point1.equals(point3))  && !(point2.equals(point3))) {
-                        Vector AB = point2.subtract(point1);
-                        Vector AC = point3.subtract(point1);
-                        if (AB.normalize().equals(AC.normalize())) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 
     public boolean isAllPointsOnPlane(List<Point3D> points) {
-        if (!arePointsOnLine(points)) {
-            Vector normal = new Vector(points.get(1).subtract(points.get(0))).crossProduct(new Vector(points.get(2).subtract(points.get(0))));
+        Vector normal = new Vector(points.get(1).subtract(points.get(0))).crossProduct(new Vector(points.get(2).subtract(points.get(0))));
 
-            // if the polygon is valid then plane is assigned to class member.
-            Plane plane = new Plane(points.get(0), normal, Color.BLACK);
-            double d = plane.getD();
+        Plane plane = new Plane(points.get(0), normal, this._emission);
+        double d = plane.getD();
 
-            double a = normal.getHead().getX().getCoordinate();
-            double b = normal.getHead().getY().getCoordinate();
-            double c = normal.getHead().getZ().getCoordinate();
+        double a = normal.getHead().getX().getCoordinate();
+        double b = normal.getHead().getY().getCoordinate();
+        double c = normal.getHead().getZ().getCoordinate();
 
 
-            for (Point3D point : points) {
-                double x = point.getX().getCoordinate();
-                double y = point.getY().getCoordinate();
-                double z = point.getZ().getCoordinate();
+        for (Point3D point : points) {
+            double x = point.getX().getCoordinate();
+            double y = point.getY().getCoordinate();
+            double z = point.getZ().getCoordinate();
 
-                if (x * a + y * b + z * c + d != 0) {
-                    return false;
-                }
+            if (x * a + y * b + z * c + d != 0) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
     @Override

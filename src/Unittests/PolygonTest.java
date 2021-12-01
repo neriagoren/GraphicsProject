@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class PolygonTest {
 
@@ -20,18 +20,18 @@ public class PolygonTest {
 
         points1.add(new Point3D(1,0,0));
         points1.add(new Point3D(0,1,0));
-        points1.add(new Point3D(0,0,1));
-        points1.add(new Point3D(1,1,1));
+        points1.add(new Point3D(0,0,0));
+        points1.add(new Point3D(1,1,0));
 
         points2.add(new Point3D(0,1,0));
         points2.add(new Point3D(1,0,0));
-        points2.add(new Point3D(0,0,1));
-        points2.add(new Point3D(1,1,1));
+        points2.add(new Point3D(1,1,0));
+        points2.add(new Point3D(0,0,0));
 
         Polygon polygon1 = new Polygon(points1, Color.BLUE);
         Polygon polygon2 = new Polygon(points2, Color.BLUE);
 
-        assertTrue("Not equal polygons", polygon1.equals(polygon2));
+        assertEquals("Not equal polygons", polygon1, polygon2);
 
     }
 }

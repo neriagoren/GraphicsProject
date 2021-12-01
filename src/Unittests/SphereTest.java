@@ -1,5 +1,6 @@
 package Unittests;
 
+import Geometries.GeoPoint;
 import Geometries.Sphere;
 import Primitives.Point3D;
 import Primitives.Ray;
@@ -45,11 +46,11 @@ public class SphereTest {
               sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Ray.Vector(1, 1, 0))));
 
         // TC02: Ray starts before and crosses the sphere (2 points)
-        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Ray.Vector(3, 1, 0)));
+        List<GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Ray.Vector(3, 1, 0)));
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).getX().getCoordinate() > result.get(1).getX().getCoordinate()) {
-            Point3D temp = result.get(0);
-            Point3D temp2 = result.get(1);
+        if (result.get(0).getPoint().getX().getCoordinate() > result.get(1).getPoint().getX().getCoordinate()) {
+            GeoPoint temp = result.get(0);
+            GeoPoint temp2 = result.get(1);
             result.clear();
             result.add(temp2);
             result.add(temp);
@@ -82,9 +83,9 @@ public class SphereTest {
         // TC13: Ray starts before the sphere (2 points)
         result = sphere.findIntersections(new Ray(new Point3D(1, -2, 0), new Ray.Vector(0, 1, 0)));
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).getY().getCoordinate() > result.get(1).getY().getCoordinate()) {
-            Point3D temp = result.get(0);
-            Point3D temp2 = result.get(1);
+        if (result.get(0).getPoint().getY().getCoordinate() > result.get(1).getPoint().getY().getCoordinate()) {
+            GeoPoint temp = result.get(0);
+            GeoPoint temp2 = result.get(1);
             result.clear();
             result.add(temp2);
             result.add(temp);

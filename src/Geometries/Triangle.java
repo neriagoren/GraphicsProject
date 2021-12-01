@@ -40,11 +40,11 @@ public class Triangle extends Geometry {
 
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
 
         // finding the intersection of ray and triangle's plane
-        Plane plane = new Plane(this._p1, this._p2, this._p3, Color.BLACK);
-        List<Point3D> points = plane.findIntersections(ray);
+        Plane plane = new Plane(this._p1, this._p2, this._p3, this.getEmission());
+        List<GeoPoint> points = plane.findIntersections(ray);
 
         // Checking if the intersection point is inside the triangle
         // create 3 planes - pyramid. then check if all signs are the same
