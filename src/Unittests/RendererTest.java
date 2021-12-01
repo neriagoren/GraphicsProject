@@ -3,6 +3,8 @@ package Unittests;
 
 import Elements.Camera;
 import Geometries.Polygon;
+import Geometries.Sphere;
+import Geometries.Triangle;
 import Primitives.Point3D;
 import Primitives.Ray.Vector;
 import Renderer.ImageWriter;
@@ -24,21 +26,21 @@ class RendererTest {
         scene.setScreenDistance(100) ;
         scene.setBackground(new Color(0,0,0));
 
-//        scene.addGeometry(new Triangle(new Point3D(0, 50, 150), new Point3D(20, 2, 150), new Point3D(39, 50, 150),new Color(78, 49, 5)));
-//        scene.addGeometry(new Triangle(new Point3D(0, 50, 150), new Point3D(-20, 2, 150), new Point3D(-39, 50, 150),new Color(78, 49, 5)));
-//
-//        scene.addGeometry(new Sphere( new Point3D(0, -25, 200), 25,new Color(0,255,0)));
-//        scene.addGeometry(new Sphere( new Point3D(0, 50, 200), 50,new Color(255,255,255)));
-//
-//        scene.addGeometry(new Triangle(new Point3D(-50, -50, 200), new Point3D(-50, -40, 200), new Point3D(-25, -35, 200),new Color(0,255,0)));
-//        scene.addGeometry(new Triangle(new Point3D(50, -50, 200), new Point3D(50, -40, 200), new Point3D(25, -35, 200),new Color(0,255,0)));
+        scene.addGeometry(new Triangle(new Point3D(0, 50, 150), new Point3D(20, 2, 150), new Point3D(39, 50, 150),new Color(78, 49, 5)));
+        scene.addGeometry(new Triangle(new Point3D(0, 50, 150), new Point3D(-20, 2, 150), new Point3D(-39, 50, 150),new Color(78, 49, 5)));
+
+        scene.addGeometry(new Sphere( new Point3D(0, -25, 200), 25,new Color(0,255,0)));
+        scene.addGeometry(new Sphere( new Point3D(0, 50, 200), 50,new Color(255,255,255)));
+
+        scene.addGeometry(new Triangle(new Point3D(-50, -50, 200), new Point3D(-50, -40, 200), new Point3D(-25, -35, 200),new Color(0,255,0)));
+        scene.addGeometry(new Triangle(new Point3D(50, -50, 200), new Point3D(50, -40, 200), new Point3D(25, -35, 200),new Color(0,255,0)));
 
         List<Point3D> polygon = new ArrayList<>();
 
-        polygon.add(new Point3D(100,100, 200));
-        polygon.add(new Point3D(0,0, 200));
-        polygon.add(new Point3D(0,100, 200));
-        polygon.add(new Point3D(100,0, 200));
+        polygon.add(new Point3D(25,0, 190));
+        polygon.add(new Point3D(50,0, 190));
+        polygon.add(new Point3D(25,25, 190));
+        polygon.add(new Point3D(50,25, 190));
         scene.addGeometry(new Polygon( polygon, new Color(255,0,255)));
 
 
