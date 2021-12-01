@@ -5,6 +5,7 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +15,22 @@ public class SphereTest {
 
     @Test
     public void testEquals() {
-        Sphere sphere1 = new Sphere(new Point3D(1,1,1), 5);
-        Sphere sphere2 = new Sphere(new Point3D(1,1,1), 5);
-        assertTrue("Not Equal Spheres", sphere1.equals(sphere2));
+        Sphere sphere1 = new Sphere(new Point3D(1,1,1), 5, Color.BLACK);
+        Sphere sphere2 = new Sphere(new Point3D(1,1,1), 5, Color.BLACK);
+        assertEquals("Not Equal Spheres", sphere1, sphere2);
     }
 
     @Test
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
-        Sphere sph = new Sphere(new Point3D(0, 0, 0), 1d);
+        Sphere sph = new Sphere(new Point3D(0, 0, 0), 1d, Color.BLACK);
         assertEquals("Bad normal to sphere", new Ray.Vector(0, 0, 1), sph.getNormal(new Point3D(0, 0, 1)));
     }
 
     @Test
     public void testFindIntersectionsRay() {
-        Sphere sphere = new Sphere( new Point3D(1, 0, 0), 1d);
+        Sphere sphere = new Sphere( new Point3D(1, 0, 0), 1d, Color.BLACK);
         List<Point3D> exp = new ArrayList<>();
         // ============ Equivalence Partitions Tests ==============
         Point3D gp1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);

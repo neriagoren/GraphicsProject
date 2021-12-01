@@ -3,7 +3,7 @@ import Elements.Camera;
 import Geometries.Geometry;
 
 import java.awt.*;
-import java.security.cert.CertificateParsingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
@@ -16,6 +16,7 @@ public class Scene {
     public Scene(String name) {
         this._name = name;
         this._background = Color.BLACK;
+        this._geometries = new ArrayList<>();
     }
 
     public Scene(String name, List<Geometry> geometries, Camera camera, double distance, Color background) {

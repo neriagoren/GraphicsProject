@@ -1,6 +1,5 @@
 package Renderer;
 
-import Geometries.GeoPoint;
 import Geometries.Geometry;
 import Primitives.Point3D;
 import Primitives.Ray;
@@ -36,10 +35,9 @@ public class Renderer {
 
     public void renderImage() {
         for (int i = 0; i < this._imageWriter.getNy(); i++) {
-            for (int j = 0; j < this._imageWriter.getNx(); i++) {
+            for (int j = 0; j < this._imageWriter.getNx(); j++) {
                 Ray ray = this._scene.getCamera().
                         constructRayThroughPixel(_imageWriter.getNx(), _imageWriter.getNy(), j, i, _scene.getScreenDistance(), _imageWriter.getWidth(), _imageWriter.getHeight());
-
                 List<Point3D> intersectionPoints = getSceneRayIntersections(ray);
 
                 if (intersectionPoints.isEmpty()) {
@@ -51,30 +49,22 @@ public class Renderer {
                 }
             }
         }
-        //_imageWriter.writeToImage();
+        _imageWriter.writeToImage();
     }
 
     private List<Point3D> getSceneRayIntersections(Ray ray) {
         List<Point3D> intersectionPoints = new ArrayList<>();
 
         for (Geometry geometry : this._scene.getGeometries()) {
+            // findIntersections might return NULL !!!
             List<Point3D> geometryIntersectionPoints = geometry.findIntersections(ray);
-            intersectionPoints.addAll(geometryIntersectionPoints);
+            if (geometryIntersectionPoints != null) {
+                intersectionPoints.addAll(geometryIntersectionPoints);
+            }
         }
+        // intersectionPoints might be empty! (not NULL)
         return intersectionPoints;
     }
-
-//    private List<GeoPoint> getSceneRayIntersections(Ray ray) {
-//        List<Point3D> intersectionPoints = new ArrayList<>();
-//
-//        for (Geometry geometry : this._scene.getGeometries()) {
-//            List<Point3D> geometryIntersectionPoints = geometry.findIntersections(ray);
-//            for (Point3D point : geometryIntersectionPoints) {
-//                intersectionPoints.add(point);
-//            }
-//        }
-//        return intersectionPoints;
-//    }
 
     private Point3D getClosestPoint(List<Point3D> intersectionPoints) {
         double distance = Double.MAX_VALUE;
@@ -90,14 +80,8 @@ public class Renderer {
         return minDistancePoint;
     }
 
-//    private Point3D getClosestPoint(List<GeoPoint> intersectionPoints) {
-//
-//    }
-//    private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
-//
-//    }
 
     private Color calcColor(Point3D gp) {
-        return new Color(100,100,100);
+        return new Color(255,255,255);
     }
 }

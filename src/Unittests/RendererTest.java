@@ -1,10 +1,6 @@
 package Unittests;
 
 
-import java.awt.Color;
-
-import org.junit.jupiter.api.Test;
-
 import Elements.Camera;
 import Geometries.Sphere;
 import Geometries.Triangle;
@@ -13,6 +9,9 @@ import Primitives.Ray.Vector;
 import Renderer.ImageWriter;
 import Renderer.Renderer;
 import Scene.Scene;
+import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 class RendererTest {
 
@@ -22,7 +21,7 @@ class RendererTest {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setScreenDistance(100) ;
-        scene.setBackground(new Color(0,0,0));;
+        scene.setBackground(new Color(0,0,0));
 
         scene.addGeometry(new Sphere( new Point3D(0, 0, 100), 50,new Color(255,0,0)));
 
