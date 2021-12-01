@@ -44,24 +44,50 @@ public class Polygon extends Geometry {
     // ==============================================
     public List<GeoPoint> findIntersections(Ray ray) {
 
-        // Polygon ray intersection is complicated!
-        // Therefore i make triangles for each 3 points of polygon
-        // and check if the intersection point is inside it.
+        // finding the intersection of ray and polygon's plane
+        Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2), this.getEmission());
+        List<GeoPoint> points = plane.findIntersections(ray);
 
-        for (Point3D A : _points) {
-            for (Point3D B : _points) {
-                for (Point3D C : _points) {
-                    if (!A.equals(B) && !A.equals(C) && !B.equals(C)) {
-                        Triangle triangle = new Triangle(A,B,C, this._emission);
-                        List<GeoPoint> points = triangle.findIntersections(ray);
-                        if (points != null) {
-                            return points;
-                        }
-                    }
-                }
+        if (isPointInPolygon(points.get(0).getPoint())) {
+            return points;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public boolean isPointInPolygon( Point3D p )
+    {
+        double minX = this._points.get(0).getX().getCoordinate();
+        double maxX = this._points.get(0).getX().getCoordinate();
+        double minY = this._points.get(0).getY().getCoordinate();
+        double maxY = this._points.get(0).getX().getCoordinate();
+        for ( int i = 1 ; i < this._points.size() ; i++ )
+        {
+            Point3D q = this._points.get(i);
+            minX = Math.min( q.getX().getCoordinate(), minX );
+            maxX = Math.max( q.getX().getCoordinate(), maxX );
+            minY = Math.min( q.getY().getCoordinate(), minY );
+            maxY = Math.max( q.getY().getCoordinate(), maxY );
+        }
+
+        if ( p.getX().getCoordinate() < minX || p.getX().getCoordinate() > maxX || p.getY().getCoordinate() < minY || p.getY().getCoordinate() > maxY )
+        {
+            return false;
+        }
+
+        // https://wrf.ecse.rpi.edu/Research/Short_Notes/pnpoly.html
+        boolean inside = false;
+        for ( int i = 0, j = this._points.size() - 1 ; i < this._points.size() ; j = i++ )
+        {
+            if ( ( this._points.get(i).getY().getCoordinate() > p.getY().getCoordinate() ) != ( this._points.get(j).getY().getCoordinate() > p.getY().getCoordinate() ) &&
+                    (p.getX().getCoordinate()< ( this._points.get(j).getX().getCoordinate() - this._points.get(i).getX().getCoordinate() ) * ( p.getY().getCoordinate() - this._points.get(i).getY().getCoordinate() ) / ( this._points.get(i).getY().getCoordinate() - this._points.get(i).getY().getCoordinate() ) + this._points.get(i).getX().getCoordinate() ))
+            {
+                inside = !inside;
             }
         }
-        return null;
+
+        return inside;
     }
 
     public Vector getNormal(Point3D point) {

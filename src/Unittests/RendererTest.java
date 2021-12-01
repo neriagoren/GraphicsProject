@@ -35,16 +35,10 @@ class RendererTest {
 
         List<Point3D> polygon = new ArrayList<>();
 
-//        polygon.add(new Point3D(100,100, 200));
-//        polygon.add(new Point3D(0,0, 200));
-//        polygon.add(new Point3D(0,100, 200));
-//        polygon.add(new Point3D(100,0, 200));
-
-        polygon.add(new Point3D(-50,-50, 200));
-        polygon.add(new Point3D(-50,-40, 200));
-        polygon.add(new Point3D(-25,-50, 200));
-        polygon.add(new Point3D(-25,-40, 200));
-
+        polygon.add(new Point3D(100,100, 200));
+        polygon.add(new Point3D(0,0, 200));
+        polygon.add(new Point3D(0,100, 200));
+        polygon.add(new Point3D(100,0, 200));
         scene.addGeometry(new Polygon( polygon, new Color(255,0,255)));
 
 
