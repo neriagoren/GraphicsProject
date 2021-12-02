@@ -43,7 +43,15 @@ class RendererTest {
         polygon.add(new Point3D(-100,50, 190));
         polygon.add(new Point3D(-100,-50, 190));
 
+
         scene.addGeometry(new Polygon(polygon, Color.BLUE));
+
+
+        Polygon poly = new Polygon(polygon, Color.WHITE);
+        Point3D[] points = poly.sortVertexes();
+        for (int i = 0; i < points.length; i++) {
+            System.out.println(points[i]);
+        }
 
         ImageWriter imageWriter = new ImageWriter("SHREK", 500, 500, 500, 500);
         Renderer render = new Renderer(imageWriter, scene);

@@ -45,11 +45,12 @@ public class Polygon extends Geometry {
 
     // WORKS ONLY WITH CONVEX POLYGONS!
     public List<GeoPoint> findIntersections(Ray ray) {
+        Triangle triangle;
         for (Point3D A : _points) {
             for (Point3D B : _points) {
                 for (Point3D C : _points) {
                     if (!A.equals(B) && !A.equals(C) && !B.equals(C)) {
-                        Triangle triangle = new Triangle(A, B, C, this._emission);
+                        triangle = new Triangle(A, B, C, this._emission);
                         List<GeoPoint> points = triangle.findIntersections(ray);
                         if (points != null) {
                             return points;
@@ -58,9 +59,48 @@ public class Polygon extends Geometry {
                 }
             }
         }
+
         return null;
     }
 
+    public Point3D[] sortVertexes() {
+
+        Point3D[] vertexes = new Point3D[_points.size()];
+        vertexes[0] = new Point3D(_points.get(0));
+        Point3D point;
+        for (int i = 0; i < vertexes.length - 1; i++) {
+            vertexes[i+1] = closest(vertexes, vertexes[i]);
+
+        }
+        return vertexes;
+    }
+
+    public Point3D closest(Point3D[] vertexes, Point3D point) {
+        double dis1 = Double.MAX_VALUE;
+        Point3D close = new Point3D();
+
+        for (int i = 0; i < _points.size(); i++) {
+            if (!_points.get(i).equals(point) && !isThere(vertexes, _points.get(i))) {
+                if (_points.get(i).distance(point) < dis1) {
+                    dis1 = _points.get(i).distance(point);
+                    close = new Point3D(_points.get(i));
+                }
+            }
+
+        }
+        return close;
+    }
+
+    public boolean isThere(Point3D[] vertexes, Point3D point) {
+        for (int i = 0; i < vertexes.length; i++) {
+            if (vertexes[i] != null) {
+                if (vertexes[i].equals(point)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
 
