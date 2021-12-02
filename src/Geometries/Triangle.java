@@ -52,6 +52,7 @@ public class Triangle extends Geometry {
         Vector v2 = this._p2.subtract(ray.getP());
         Vector v3 = this._p3.subtract(ray.getP());
 
+
         Vector n1 = v1.crossProduct(v2).normalize();
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();
