@@ -48,9 +48,8 @@ class RendererTest {
 
 
         Polygon poly = new Polygon(polygon, Color.WHITE);
-        Point3D[] points = poly.sortVertexes();
-        for (int i = 0; i < points.length; i++) {
-            System.out.println(points[i]);
+        for (int i = 0; i < poly.getPoints().size(); i++) {
+            System.out.println(poly.getPoints().get(i));
         }
 
         ImageWriter imageWriter = new ImageWriter("SHREK", 500, 500, 500, 500);

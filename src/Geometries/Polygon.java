@@ -5,6 +5,7 @@ import Primitives.Ray;
 import Primitives.Ray.Vector;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Polygon extends Geometry {
@@ -21,7 +22,11 @@ public class Polygon extends Geometry {
             else {
                 // the method isAllPointsOnPlane calculates also the plane of the polygon
                 if(isAllPointsOnPlane(points)) {
-                    this._points = points;
+                    this._points = new ArrayList<>();
+                    Point3D[] sorted = sortVertexes(points);
+                    for (int i = 0; i < sorted.length; i++) {
+                        this._points.add(sorted[i]);
+                    }
                     this.setEmission(color);
                 }
                 else {
@@ -63,27 +68,26 @@ public class Polygon extends Geometry {
         return null;
     }
 
-    public Point3D[] sortVertexes() {
+    public Point3D[] sortVertexes(List<Point3D> points) {
 
-        Point3D[] vertexes = new Point3D[_points.size()];
-        vertexes[0] = new Point3D(_points.get(0));
-        Point3D point;
+        Point3D[] vertexes = new Point3D[points.size()];
+        vertexes[0] = new Point3D(points.get(0));
         for (int i = 0; i < vertexes.length - 1; i++) {
-            vertexes[i+1] = closest(vertexes, vertexes[i]);
+            vertexes[i+1] = closest(vertexes, vertexes[i], points);
 
         }
         return vertexes;
     }
 
-    public Point3D closest(Point3D[] vertexes, Point3D point) {
+    public Point3D closest(Point3D[] vertexes, Point3D point, List<Point3D> points) {
         double dis1 = Double.MAX_VALUE;
         Point3D close = new Point3D();
 
-        for (int i = 0; i < _points.size(); i++) {
-            if (!_points.get(i).equals(point) && !isThere(vertexes, _points.get(i))) {
-                if (_points.get(i).distance(point) < dis1) {
-                    dis1 = _points.get(i).distance(point);
-                    close = new Point3D(_points.get(i));
+        for (int i = 0; i < points.size(); i++) {
+            if (!points.get(i).equals(point) && !isThere(vertexes, points.get(i))) {
+                if (points.get(i).distance(point) < dis1) {
+                    dis1 = points.get(i).distance(point);
+                    close = new Point3D(points.get(i));
                 }
             }
 
