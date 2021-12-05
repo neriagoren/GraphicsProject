@@ -2,6 +2,7 @@ package Renderer;
 
 import Geometries.GeoPoint;
 import Geometries.Geometry;
+import Geometries.Plane;
 import Primitives.Point3D;
 import Primitives.Ray;
 import Scene.Scene;
@@ -46,7 +47,15 @@ public class Renderer {
                 }
                 else {
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
-                    _imageWriter.writePixel(j, i, calcColor(closestPoint));
+                    if (closestPoint.getGeometry() instanceof Plane && intersectionPoints.size() >= 2) {
+
+                        _imageWriter.writePixel(j, i, closestPoint.getGeometry().getEmission().darker());
+
+                    }
+                    else {
+                        _imageWriter.writePixel(j, i, calcColor(closestPoint));
+
+                    }
                 }
             }
         }
