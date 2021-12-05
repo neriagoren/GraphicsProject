@@ -2,6 +2,7 @@ package Unittests;
 
 
 import Elements.Camera;
+import Geometries.Plane;
 import Geometries.Polygon;
 import Geometries.Sphere;
 import Geometries.Triangle;
@@ -27,7 +28,7 @@ class RendererTest {
         scene.setBackground(new Color(86, 156, 177));
 
 
-        scene.addGeometry(new Triangle(new Point3D(0,-300, 200), new Point3D(-125, -150, 200), new Point3D(125,-150,200), Color.YELLOW));
+        scene.addGeometry(new Triangle(new Point3D(100,-300, 200), new Point3D(25, -150, 200), new Point3D(225,-150,200), Color.YELLOW));
 
         scene.addGeometry(new Sphere( new Point3D(0, 0, 200), 75,new Color(0,255,0)));
 
@@ -48,18 +49,19 @@ class RendererTest {
         hexagon.add(new Point3D(-350,-50, 200));
 
 
-        pentagon.add(new Point3D(-0,150, 200));
-        pentagon.add(new Point3D(50,335, 200));
-        pentagon.add(new Point3D(-50,335, 200));
-        pentagon.add(new Point3D(100,225, 200));
-        pentagon.add(new Point3D(-100,225, 200));
+        pentagon.add(new Point3D(-100,-325, 200));
+        pentagon.add(new Point3D(-50,-140, 200));
+        pentagon.add(new Point3D(-150,-140, 200));
+        pentagon.add(new Point3D(0,-250, 200));
+        pentagon.add(new Point3D(-200,-250, 200));
 
 
         scene.addGeometry(new Polygon(hexagon, Color.BLUE));
         scene.addGeometry(new Polygon(square, Color.RED));
         scene.addGeometry(new Polygon(pentagon, Color.MAGENTA));
 
-
+        Plane plane = new Plane(new Point3D(0,250,200), new Vector(0,1,0), new Color(14, 203, 137, 255));
+        scene.addGeometry(plane);
         ImageWriter imageWriter = new ImageWriter("SHAPES", 500, 500, 500, 500);
         Renderer render = new Renderer(imageWriter, scene);
 
