@@ -6,6 +6,7 @@ import Primitives.Ray.Vector;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Polygon extends Geometry {
@@ -24,9 +25,7 @@ public class Polygon extends Geometry {
                 if(isAllPointsOnPlane(points)) {
                     this._points = new ArrayList<>();
                     Point3D[] sorted = sortVertexes(points);
-                    for (int i = 0; i < sorted.length; i++) {
-                        this._points.add(sorted[i]);
-                    }
+                    Collections.addAll(this._points, sorted);
                     this.setEmission(color);
                 }
                 else {
@@ -50,63 +49,19 @@ public class Polygon extends Geometry {
 
     // WORKS ONLY WITH CONVEX POLYGONS!
     public List<GeoPoint> findIntersections(Ray ray) {
+
+        // now using the sorted vertexes we can reduce the complexity of this method
+        // FOR EXAMPLE:  6 sided polygon - only 4 triangles instead of (6 C 3)
         Triangle triangle;
-        for (Point3D A : _points) {
-            for (Point3D B : _points) {
-                for (Point3D C : _points) {
-                    if (!A.equals(B) && !A.equals(C) && !B.equals(C)) {
-                        triangle = new Triangle(A, B, C, this._emission);
-                        List<GeoPoint> points = triangle.findIntersections(ray);
-                        if (points != null) {
-                            return points;
-                        }
-                    }
-                }
+        for (int i = 0; i < _points.size()-2; i++) {
+            triangle = new Triangle(_points.get(0), _points.get(i+1), _points.get(i+2), this._emission);
+            List<GeoPoint> points = triangle.findIntersections(ray);
+            if (points != null) {
+                return points;
             }
         }
-
         return null;
     }
-
-    public Point3D[] sortVertexes(List<Point3D> points) {
-
-        Point3D[] vertexes = new Point3D[points.size()];
-        vertexes[0] = new Point3D(points.get(0));
-        for (int i = 0; i < vertexes.length - 1; i++) {
-            vertexes[i+1] = closest(vertexes, vertexes[i], points);
-
-        }
-        return vertexes;
-    }
-
-    public Point3D closest(Point3D[] vertexes, Point3D point, List<Point3D> points) {
-        double dis1 = Double.MAX_VALUE;
-        Point3D close = new Point3D();
-
-        for (int i = 0; i < points.size(); i++) {
-            if (!points.get(i).equals(point) && !isThere(vertexes, points.get(i))) {
-                if (points.get(i).distance(point) < dis1) {
-                    dis1 = points.get(i).distance(point);
-                    close = new Point3D(points.get(i));
-                }
-            }
-
-        }
-        return close;
-    }
-
-    public boolean isThere(Point3D[] vertexes, Point3D point) {
-        for (int i = 0; i < vertexes.length; i++) {
-            if (vertexes[i] != null) {
-                if (vertexes[i].equals(point)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
 
     public Vector getNormal(Point3D point) {
         Vector v1 = this._points.get(1).subtract(this._points.get(0));
@@ -145,6 +100,42 @@ public class Polygon extends Geometry {
         return true;
     }
 
+    public Point3D[] sortVertexes(List<Point3D> points) {
+        Point3D[] vertexes = new Point3D[points.size()];
+        vertexes[0] = new Point3D(points.get(0));
+        for (int i = 0; i < vertexes.length - 1; i++) {
+            vertexes[i+1] = closest(vertexes, vertexes[i], points);
+
+        }
+        return vertexes;
+    }
+
+    public Point3D closest(Point3D[] vertexes, Point3D point, List<Point3D> points) {
+        double dis1 = Double.MAX_VALUE;
+        Point3D close = new Point3D();
+
+        for (Point3D point3D : points) {
+            if (!point3D.equals(point) && !isThere(vertexes, point3D)) {
+                if (point3D.distance(point) < dis1) {
+                    dis1 = point3D.distance(point);
+                    close = new Point3D(point3D);
+                }
+            }
+
+        }
+        return close;
+    }
+
+    public boolean isThere(Point3D[] vertexes, Point3D point) {
+        for (Point3D vertex : vertexes) {
+            if (vertex != null && vertex.equals(point)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     @Override
     public boolean equals(Object o) {
 
@@ -181,13 +172,13 @@ public class Polygon extends Geometry {
 
     @Override
     public String toString() {
-        String polygon = "";
+        StringBuilder polygon = new StringBuilder();
 
         for (Point3D point : this._points) {
-            polygon += point.toString();
-            polygon += " ";
+            polygon.append(point.toString());
+            polygon.append(" ");
         }
-        polygon += ", Color: " + this.getEmission().toString();
-        return polygon;
+        polygon.append(", Color: ").append(this.getEmission().toString());
+        return polygon.toString();
     }
 }

@@ -3,6 +3,8 @@ package Unittests;
 
 import Elements.Camera;
 import Geometries.Polygon;
+import Geometries.Sphere;
+import Geometries.Triangle;
 import Primitives.Point3D;
 import Primitives.Ray.Vector;
 import Renderer.ImageWriter;
@@ -19,55 +21,49 @@ class RendererTest {
     @Test
     public void SHREK() {
 
-        Scene scene = new Scene("SHREK");
+        Scene scene = new Scene("SHAPES");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setScreenDistance(100) ;
         scene.setBackground(new Color(0,0,0));
 
-//        scene.addGeometry(new Triangle(new Point3D(0, 50, 150), new Point3D(20, 2, 150), new Point3D(39, 50, 150),new Color(78, 49, 5)));
-//        scene.addGeometry(new Triangle(new Point3D(0, 50, 150), new Point3D(-20, 2, 150), new Point3D(-39, 50, 150),new Color(78, 49, 5)));
-//
-//        scene.addGeometry(new Sphere( new Point3D(0, -25, 200), 25,new Color(0,255,0)));
-//        scene.addGeometry(new Sphere( new Point3D(0, 50, 200), 50,new Color(255,255,255)));
-//
-//        scene.addGeometry(new Triangle(new Point3D(-50, -50, 200), new Point3D(-50, -40, 200), new Point3D(-25, -35, 200),new Color(0,255,0)));
-//        scene.addGeometry(new Triangle(new Point3D(50, -50, 200), new Point3D(50, -40, 200), new Point3D(25, -35, 200),new Color(0,255,0)));
-//
 
-        List<Point3D> polygon = new ArrayList<>();
+        scene.addGeometry(new Triangle(new Point3D(0,-300, 200), new Point3D(-125, -150, 200), new Point3D(125,-150,200), Color.YELLOW));
 
-        polygon.add(new Point3D(0,-100, 190));
-        polygon.add(new Point3D(0,100, 190));
-        polygon.add(new Point3D(100,-50, 190));
-        polygon.add(new Point3D(100,50, 190));
-        polygon.add(new Point3D(-100,50, 190));
-        polygon.add(new Point3D(-100,-50, 190));
+        scene.addGeometry(new Sphere( new Point3D(0, 0, 200), 75,new Color(0,255,0)));
+
+        List<Point3D> hexagon = new ArrayList<>();
+        List<Point3D> square = new ArrayList<>();
+        List<Point3D> octagon = new ArrayList<>();
+
+        square.add(new Point3D(250,-100, 200));
+        square.add(new Point3D(250,100, 200));
+        square.add(new Point3D(350,0, 200));
+        square.add(new Point3D(150,0, 200));
+
+        hexagon.add(new Point3D(-250,-100, 200));
+        hexagon.add(new Point3D(-250,100, 200));
+        hexagon.add(new Point3D(-150,-50, 200));
+        hexagon.add(new Point3D(-150,50, 200));
+        hexagon.add(new Point3D(-350,50, 200));
+        hexagon.add(new Point3D(-350,-50, 200));
 
 
-        scene.addGeometry(new Polygon(polygon, Color.BLUE));
+        octagon.add(new Point3D(-0,150, 200));
+        octagon.add(new Point3D(50,335, 200));
+        octagon.add(new Point3D(-50,335, 200));
+        octagon.add(new Point3D(100,225, 200));
+        octagon.add(new Point3D(-100,225, 200));
 
 
-        Polygon poly = new Polygon(polygon, Color.WHITE);
-        for (int i = 0; i < poly.getPoints().size(); i++) {
-            System.out.println(poly.getPoints().get(i));
-        }
+        scene.addGeometry(new Polygon(hexagon, Color.BLUE));
+        scene.addGeometry(new Polygon(square, Color.RED));
+        scene.addGeometry(new Polygon(octagon, Color.MAGENTA));
 
-        ImageWriter imageWriter = new ImageWriter("SHREK", 500, 500, 500, 500);
+
+        ImageWriter imageWriter = new ImageWriter("SHAPES", 500, 500, 500, 500);
         Renderer render = new Renderer(imageWriter, scene);
 
         render.renderImage();
 
     }
-
-    @Test
-    public void gridPaint(){
-        ImageWriter grid = new ImageWriter("grid", 500, 500, 500, 500);
-        for (int i = 0; i < 500; i++) {
-            for (int j = 0; j < 500; j++) {
-                grid.writePixel(j,i,i % 50 == 0 || j % 50 == 0 ? Color.PINK : Color.WHITE);
-            }
-        }
-        grid.writeToImage();
-    }
-
 }
