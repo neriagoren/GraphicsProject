@@ -20,7 +20,7 @@ import java.util.List;
 class RendererTest {
 
     @Test
-    public void SHREK() {
+    public void testShapes() {
 
         Scene scene = new Scene("SHAPES");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
