@@ -3,6 +3,7 @@ package Geometries;
 import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Ray.Vector;
+import Primitives.Util;
 
 import java.awt.*;
 import java.util.List;
@@ -57,14 +58,14 @@ public class Triangle extends Geometry {
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();
 
-        if (ray.getDirection().dotProduct(n1) > 0 &&
-               ray.getDirection().dotProduct(n2) > 0 &&
-                  ray.getDirection().dotProduct(n3) > 0) {
+        if (Util.alignZero(ray.getDirection().dotProduct(n1)) > 0 &&
+                Util.alignZero(ray.getDirection().dotProduct(n2)) > 0 &&
+                Util.alignZero(ray.getDirection().dotProduct(n3)) > 0) {
             return points;
         }
-        else if (ray.getDirection().dotProduct(n1) < 0 &&
-                ray.getDirection().dotProduct(n2) < 0 &&
-                ray.getDirection().dotProduct(n3) < 0) {
+        else if (Util.alignZero(ray.getDirection().dotProduct(n1)) < 0 &&
+                Util.alignZero(ray.getDirection().dotProduct(n2)) < 0 &&
+                Util.alignZero(ray.getDirection().dotProduct(n3)) < 0) {
             return points;
         }
         else {

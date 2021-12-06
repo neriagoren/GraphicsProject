@@ -87,7 +87,7 @@ public class Ray {
             double v1 = other.getHead().getX().getCoordinate();
             double v2 = other.getHead().getY().getCoordinate();
             double v3 = other.getHead().getZ().getCoordinate();
-            return new Vector(u2*v3-u3*v2,u3*v1-u1*v3,u1*v2-u2*v1);
+            return new Vector((u2*v3)-(u3*v2),(u3*v1)-(u1*v3),(u1*v2)-(u2*v1));
         }
 
         public double dotProduct(Vector other) {
@@ -97,7 +97,7 @@ public class Ray {
             double v1 = other.getHead().getX().getCoordinate();
             double v2 = other.getHead().getY().getCoordinate();
             double v3 = other.getHead().getZ().getCoordinate();
-            return (u1*v1 + u2*v2 + u3*v3);
+            return ((u1*v1) + (u2*v2) + (u3*v3));
         }
 
         @Override

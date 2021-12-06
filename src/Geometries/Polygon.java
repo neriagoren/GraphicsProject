@@ -3,6 +3,7 @@ package Geometries;
 import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Ray.Vector;
+import Primitives.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -50,17 +51,38 @@ public class Polygon extends Geometry {
     // WORKS ONLY WITH CONVEX POLYGONS!
     public List<GeoPoint> findIntersections(Ray ray) {
 
-        // now using the sorted vertexes we can reduce the complexity of this method
-        // FOR EXAMPLE:  6 sided polygon - only 4 triangles instead of (6 C 3)
-        Triangle triangle;
-        for (int i = 0; i < _points.size()-2; i++) {
-            triangle = new Triangle(_points.get(0), _points.get(i+1), _points.get(i+2), this._emission);
-            List<GeoPoint> points = triangle.findIntersections(ray);
-            if (points != null) {
-                return points;
+        Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2), this.getEmission());
+        List<GeoPoint> points = plane.findIntersections(ray);
+
+        List<Vector> vectors = new ArrayList<>();
+        List<Vector> normals = new ArrayList<>();
+
+        for (Point3D point : _points) {
+            vectors.add(point.subtract(ray.getP()));
+        }
+
+        for (int i = 0; i < vectors.size() - 1; i++) {
+            normals.add(vectors.get(i).crossProduct(vectors.get(i + 1).normalize()));
+        }
+        normals.add(vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize());
+
+        double sign = Util.alignZero(normals.get(0).dotProduct(ray.getDirection()));
+        if (sign == 0) {
+            return null;
+        } else if (sign < 0) {
+            for (int i = 1; i < normals.size(); i++) {
+                if (Util.alignZero(normals.get(i).dotProduct(ray.getDirection())) >= 0) {
+                    return null;
+                }
+            }
+        } else {
+            for (int i = 1; i < normals.size(); i++) {
+                if (Util.alignZero(normals.get(i).dotProduct(ray.getDirection())) <= 0) {
+                    return null;
+                }
             }
         }
-        return null;
+        return points;
     }
 
     public Vector getNormal(Point3D point) {

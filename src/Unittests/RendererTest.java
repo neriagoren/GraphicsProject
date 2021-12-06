@@ -2,7 +2,6 @@ package Unittests;
 
 
 import Elements.Camera;
-import Geometries.Plane;
 import Geometries.Polygon;
 import Geometries.Sphere;
 import Geometries.Triangle;
@@ -49,6 +48,7 @@ class RendererTest {
         hexagon.add(new Point3D(-340,-50, 190));
 
 
+
         pentagon.add(new Point3D(-90,-325, 200));
         pentagon.add(new Point3D(-40,-140, 200));
         pentagon.add(new Point3D(-140,-140, 200));
@@ -60,8 +60,8 @@ class RendererTest {
         scene.addGeometry(new Polygon(square, Color.RED));
         scene.addGeometry(new Polygon(pentagon, Color.MAGENTA));
 
-        Plane plane = new Plane(new Point3D(0,0,200), new Vector(1,1,1), new Color(14, 203, 137));
-        scene.addGeometry(plane);
+//        Plane plane = new Plane(new Point3D(0,0,200), new Vector(1,1,1), new Color(14, 203, 137));
+//        scene.addGeometry(plane);
         ImageWriter imageWriter = new ImageWriter("SHAPES", 500, 500, 500, 500);
         Renderer render = new Renderer(imageWriter, scene);
 
