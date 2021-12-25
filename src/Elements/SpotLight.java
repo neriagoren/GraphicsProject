@@ -11,7 +11,7 @@ public class SpotLight extends PointLight {
 
     public Color getIntensity(Point3D point) {
 
-        Ray.Vector l = point.subtract(this.getPosition());
+        Ray.Vector l = getL(point);
 
         int factor = Math.max(0,(int)l.dotProduct(this._direction));
 
@@ -25,5 +25,8 @@ public class SpotLight extends PointLight {
         b =  (b * factor) / (int) (this.getKC() + this.getKL() * d + this.getKQ() * Math.pow(d,2));
 
         return new Color(r,g,b);
+    }
+    public Ray.Vector getL(Point3D point) {
+        return new Ray.Vector(point.subtract(this.getPosition()));
     }
 }

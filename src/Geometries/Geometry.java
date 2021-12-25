@@ -14,11 +14,11 @@ public abstract class Geometry {
     public abstract List<GeoPoint> findIntersections(Ray ray);
     public abstract Ray.Vector getNormal(Point3D point);
 
-    public Color getEmission() {
-        return this._emission;
-    }
-
+    public Color getEmission() {return this._emission;}
     public void setEmission(Color color) {
         this._emission = color;
     }
+
+    public Material getMaterial() { return this._material;}
+    public void setMaterial(Material material) {this._material = material;}
 }

@@ -1,4 +1,4 @@
-package Unittest;
+package Unittests;
 
 import java.awt.Color;
 
@@ -22,7 +22,7 @@ public class LightTest {
         scene.setScreenDistance(100);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
-        scene.addGeometry(new Sphere(50, new Point3D(0.0, 0.0, 149), new Color(255,0,0)));
+        scene.addGeometry(new Sphere( new Point3D(0.0, 0.0, 149), 50, new Color(255,0,0)));
 
         Triangle triangle = new Triangle(new Point3D( 100, 0, 149),
                 new Point3D(  0, 100, 149),

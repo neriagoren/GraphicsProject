@@ -12,4 +12,8 @@ public class DirectionalLight extends Light{
     public Color getIntensity(Point3D point) {
         return this._intensity;
     }
+
+    public Ray.Vector getL(Point3D point) {
+        return new Ray.Vector(this._direction);
+    }
 }

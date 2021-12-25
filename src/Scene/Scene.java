@@ -1,4 +1,5 @@
 package Scene;
+import Elements.AmbientLight;
 import Elements.Camera;
 import Elements.Light;
 import Geometries.Geometry;
@@ -14,7 +15,7 @@ public class Scene {
     private double _screenDistance;
     private Color _background;
     private List<Light> _lights;
-    private Color _ambientLight;
+    private AmbientLight _ambientLight;
 
     public Scene(String name) {
         this._name = name;
@@ -73,5 +74,9 @@ public class Scene {
 
     public void setBackground(Color background) {
         this._background = background;
+    }
+
+    public void setAmbientLight(AmbientLight ambientLight) {
+        this._ambientLight = ambientLight;
     }
 }

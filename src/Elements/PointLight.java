@@ -1,10 +1,11 @@
 package Elements;
 
 import Primitives.Point3D;
+import Primitives.Ray;
 
 import java.awt.*;
 
-public class PointLight extends Light{
+public class PointLight extends Light {
 
     private Point3D _position;
     private double kC;
@@ -37,5 +38,10 @@ public class PointLight extends Light{
     }
     public double getKQ() {
         return this.kQ;
+    }
+
+
+    public Ray.Vector getL(Point3D point) {
+        return new Ray.Vector(point.subtract(this._position));
     }
 }
