@@ -48,7 +48,6 @@ public class Polygon extends Geometry {
     // IMPLEMENTATION OF ABSTRACT METHODS HERE
     // ==============================================
 
-    // WORKS ONLY WITH CONVEX POLYGONS!
     public List<GeoPoint> findIntersections(Ray ray) {
 
         Plane plane = new Plane(this._points.get(0), this._points.get(1), this._points.get(2), this.getEmission());
