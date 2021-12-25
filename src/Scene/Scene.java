@@ -1,5 +1,6 @@
 package Scene;
 import Elements.Camera;
+import Elements.Light;
 import Geometries.Geometry;
 
 import java.awt.*;
@@ -12,6 +13,8 @@ public class Scene {
     private Camera _camera;
     private double _screenDistance;
     private Color _background;
+    private List<Light> _lights;
+    private Color _ambientLight;
 
     public Scene(String name) {
         this._name = name;
@@ -30,6 +33,7 @@ public class Scene {
     public void addGeometry(Geometry geometry) {
         this._geometries.add(geometry);
     }
+    public void addLight(Light light) { this._lights.add(light); }
 
     public String getName() {
         return _name;

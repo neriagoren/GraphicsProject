@@ -1,5 +1,6 @@
 package Elements;
 
+import Primitives.Point3D;
 import Primitives.Ray;
 
 import java.awt.*;
@@ -8,7 +9,7 @@ public class DirectionalLight extends Light{
 
     private Ray.Vector _direction;
 
-    public Color getIntensity() {
-        return null;
+    public Color getIntensity(Point3D point) {
+        return this._intensity;
     }
 }
