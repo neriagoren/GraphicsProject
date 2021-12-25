@@ -8,7 +8,7 @@ import java.awt.*;
 public class AmbientLight extends Light {
 
     private double _kA = 0.1;
-
+//
     public AmbientLight(Color color, double kA) {
         this.setIntensity(color);
         this._kA = kA;
