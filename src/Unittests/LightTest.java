@@ -1,22 +1,27 @@
 package Unittests;
 
-import java.awt.Color;
-
-
+import Elements.AmbientLight;
+import Elements.Camera;
+import Elements.PointLight;
+import Elements.SpotLight;
+import Geometries.Sphere;
+import Geometries.Triangle;
+import Primitives.Material;
+import Primitives.Point3D;
+import Primitives.Ray;
+import Renderer.ImageWriter;
+import Renderer.Renderer;
+import Scene.Scene;
 import org.junit.Test;
 
-import Elements.*;
-import Geometries.*;
-import Primitives.*;
-import Renderer.*;
-import Scene.Scene;
+import java.awt.*;
 
 public class LightTest {
 
     @Test
     public void emissionTest(){
 
-        Scene scene = new Scene("emmissionTest");
+        Scene scene = new Scene("emissionTest");
         scene.setBackground(new Color(0, 0, 0));
         scene.setCamera(new Camera( new Point3D(0, 0, 0),new Ray.Vector(0.0, 0.0, 1.0),new Ray.Vector(0,-1, 0.0)));
         scene.setScreenDistance(100);
@@ -49,7 +54,7 @@ public class LightTest {
         scene.addGeometry(triangle3);
         scene.addGeometry(triangle4);
 
-        ImageWriter imageWriter = new ImageWriter("Emmition test", 500, 500, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("Emission test", 500, 500, 500, 500);
 
         Renderer render = new Renderer(imageWriter, scene);
 
@@ -68,7 +73,7 @@ public class LightTest {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
 
-        Sphere sphere = new Sphere(500, new Point3D(0.0, 0.0, 1000),new Color(0, 0, 100));
+        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, 1000), 500,new Color(0, 0, 100));
         Material m = new Material(1,1,20);
         sphere.setMaterial(m);
         scene.addGeometry(sphere);
@@ -104,10 +109,11 @@ public class LightTest {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
 
-        Sphere sphere = new Sphere(500, new Point3D(0.0, 0.0, 1000),new Color(0, 0, 100));
-        Material m=new Material(1,1,20);
+        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, 1000), 500,new Color(0, 0, 100));
+        Material m = new Material(1,1,20);
         sphere.setMaterial(m);
         scene.addGeometry(sphere);
+
         scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(-200, 200, 100),
                 new Ray.Vector(2, 2, -3), 0, 0.00001, 0.000005));
 
@@ -128,7 +134,7 @@ public class LightTest {
         scene.setCamera(new Camera( new Point3D(0, 0, 0),new Ray.Vector(0.0, 0.0, 1.0),new Ray.Vector(0,-1, 0.0)));
         scene.setScreenDistance(200);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
-        Sphere sphere = new Sphere (500, new Point3D(0.0, 0.0, 1000),new Color(0, 0, 100));
+        Sphere sphere = new Sphere (new Point3D(0.0, 0.0, 1000), 500,new Color(0, 0, 100));
         Material m=new Material(1,1,20);
         sphere.setMaterial(m);
         scene.addGeometry(sphere);
@@ -166,7 +172,7 @@ public class LightTest {
         scene.addGeometry(triangle1);
         scene.addGeometry(triangle2);
 
-        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(200, -200, -100), new Vector(-2, -2, -3), 0, 0.000001, 0.0000005));
+        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(200, -200, -100), new Ray.Vector(-2, -2, -3), 0, 0.000001, 0.0000005));
 
         ImageWriter imageWriter = new ImageWriter("Spot test 3", 500, 500, 500, 500);
         Renderer render = new Renderer(imageWriter, scene);
@@ -186,7 +192,7 @@ public class LightTest {
         Material m1=new Material(1,1,1);
         Material m2=new Material(1,1,20);
 
-        Sphere sphere = new Sphere(500, new Point3D(0.0, 0.0, 1000),new Color(0, 0, 100));
+        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, 1000), 500,new Color(0, 0, 100));
         sphere.setMaterial(m2);
 
         Triangle triangle1 = new Triangle(new Point3D(  3500,  3500, 2000),

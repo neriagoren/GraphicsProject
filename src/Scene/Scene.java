@@ -21,6 +21,7 @@ public class Scene {
         this._name = name;
         this._background = Color.BLACK;
         this._geometries = new ArrayList<>();
+        this._lights = new ArrayList<>();
     }
 
     public Scene(String name, List<Geometry> geometries, Camera camera, double distance, Color background) {
@@ -29,12 +30,14 @@ public class Scene {
         this._camera = camera;
         this._screenDistance = distance;
         this._background = background;
+        this._lights = new ArrayList<>();
     }
 
     public void addGeometry(Geometry geometry) {
         this._geometries.add(geometry);
     }
     public void addLight(Light light) { this._lights.add(light); }
+    public List<Light> getLights() { return this._lights;}
 
     public String getName() {
         return _name;
@@ -79,4 +82,5 @@ public class Scene {
     public void setAmbientLight(AmbientLight ambientLight) {
         this._ambientLight = ambientLight;
     }
+    public AmbientLight getAmbientLight() { return this._ambientLight;}
 }
