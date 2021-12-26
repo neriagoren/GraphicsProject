@@ -3,6 +3,7 @@ package Renderer;
 import Elements.Light;
 import Geometries.GeoPoint;
 import Geometries.Geometry;
+import Geometries.Plane;
 import Primitives.Point3D;
 import Primitives.Ray;
 import Scene.Scene;
@@ -10,7 +11,6 @@ import Scene.Scene;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class Renderer {
     private Scene _scene;
@@ -49,6 +49,17 @@ public class Renderer {
                     _imageWriter.writePixel(j, i, _scene.getBackground());
                 } else {
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
+
+                    if (closestPoint.getGeometry() instanceof Plane) {
+                        double x = closestPoint.getPoint().getX().getCoordinate();
+                        double z = closestPoint.getPoint().getZ().getCoordinate();
+                        if (((int) (z / 500) + (int) (x / 500)) % 2 == 0) {
+                            closestPoint.getGeometry().setEmission(Color.BLACK);
+                        }
+                        else {
+                            closestPoint.getGeometry().setEmission(Color.WHITE);
+                        }
+                    }
                     _imageWriter.writePixel(j, i, calcColor(closestPoint));
                 }
             }
