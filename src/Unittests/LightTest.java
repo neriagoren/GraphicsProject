@@ -23,7 +23,9 @@ public class LightTest {
 
         Scene scene = new Scene("pointLightTest");
         scene.setBackground(new Color(59, 124, 192));
-        scene.setCamera(new Camera( new Point3D(0, 0, 0),new Ray.Vector(0.0, 0.0, 1.0),new Ray.Vector(0,-1, 0.0)));
+        Camera camera = new Camera(new Point3D(0,0,0),
+                new Ray.Vector(0,0,1),new Ray.Vector(0,-1, 0));
+        scene.setCamera(camera);
         scene.setScreenDistance(200);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.05));
         Sphere sphere = new Sphere (new Point3D(-200.0, 0.0, 1000), 250, new Color(82, 7, 7));
@@ -34,17 +36,36 @@ public class LightTest {
         sphere2.setMaterial(m2);
         scene.addGeometry(sphere);
         scene.addGeometry(sphere2);
-        scene.addLight(new PointLight(new Color(255,255,255), new Point3D(0, -500, 200), 0, 0.0001, 0.00005));
+
+        PointLight pointLight = new PointLight(new Color(255,255,255), new Point3D(0, -1000, 1000), 0, 0.0001, 0.00005);
+        scene.addLight(pointLight);
 
         Plane plane = new Plane(new Point3D(0,500,1000), new Ray.Vector(0,-1,0), Color.BLACK);
         plane.setMaterial(new Material(0.1,0.1,1));
 
         scene.addGeometry(plane);
-        ImageWriter imageWriter = new ImageWriter("Point test", 500, 500, 2000, 2000);
-
+        ImageWriter imageWriter = new ImageWriter("1", 500,500,2000,2000);
         Renderer render = new Renderer(imageWriter, scene);
-
         render.renderImage();
+ double z = 500;
+        String title = "";
+
+//        double z = 500;
+//        String title = "";
+
+//        for (int i = 0; i <= 100; i+=5) {
+//
+//            z = (2000 - Math.sqrt((2000*2000) - (4 * i * i*750000))) /2;
+//
+//            pointLight.setPosition(new Point3D(i,-500,z));
+//
+//            title = String.valueOf(i);
+//            imageWriter = new ImageWriter(title, 500, 500, 2000, 2000);
+//            render = new Renderer(imageWriter, scene);
+//            render.renderImage();
+//
+//        }
+
     }
 
 //    @Test

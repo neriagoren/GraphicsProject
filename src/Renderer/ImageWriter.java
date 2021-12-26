@@ -1,12 +1,13 @@
 package Renderer;
 
-import java.awt.Color;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.stream.FileImageOutputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.*;
-import javax.imageio.stream.*;
 
 /**
  * Image writer class combines accumulation of pixel color matrix and
@@ -99,5 +100,4 @@ public class ImageWriter {
     public void writePixel(int xIndex, int yIndex, Color color){
         _image.setRGB(xIndex, yIndex, color.getRGB());
     }
-
 }

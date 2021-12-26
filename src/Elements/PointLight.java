@@ -37,9 +37,11 @@ public class PointLight extends Light {
         return new Color(Math.min(r, 255),Math.min(g, 255),Math.min(b, 255));
     }
 
+
     public Point3D getPosition() {
         return this._position;
     }
+
     public void setPosition(Point3D position) { this._position = position; }
 
     public double getKC() {
