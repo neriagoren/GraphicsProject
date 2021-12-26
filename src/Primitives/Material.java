@@ -6,35 +6,35 @@ public class Material {
     private int _nShininess;
 
     public  Material(Material material) {
-        _kd =material.getKd() ;
-        _ks = material.getKs();
-        _nShininess = material.getShininess();
+        this._kd =material.getKd() ;
+        this._ks = material.getKs();
+        this._nShininess = material.getShininess();
     }
     public  Material() {
-        _kd = 0;
-        _ks = 0;
-        _nShininess = 1;
+        this._kd = 0;
+        this._ks = 0;
+        this._nShininess = 1;
     }
     public  Material(double kd,double ks, int nS){
-        _kd = kd;
-        _ks = ks;
-        _nShininess = nS;
+        this._kd = kd;
+        this._ks = ks;
+        this._nShininess = nS;
     }
     /**
      * Diffusion attenuation factor getter/setter
      */
     public double getKd() { return this._kd; }
-    public void setKd(double kd) { _kd = kd; }
+    public void setKd(double kd) { this._kd = kd; }
 
     /**
      * Specular attenuation factor getter/setter
      */
     public double getKs() { return this._ks; }
-    public void setKs(double ks) { _ks = ks; }
+    public void setKs(double ks) { this._ks = ks; }
 
     /**
      * Shininess level getter/setter
      */
     public int getShininess() { return this._nShininess; }
-    public void setShininess(int nShininess) { _nShininess = nShininess; }
+    public void setShininess(int nShininess) { this._nShininess = nShininess; }
 }

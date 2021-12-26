@@ -15,45 +15,24 @@ public class SpotLight extends PointLight {
     }
     public Color getIntensity(Point3D point) {
 
-        Ray.Vector l = getL(point);
+        Ray.Vector l = getL(point).normalize();
 
-        int factor = Math.max(0,(int)l.dotProduct(this._direction));
+        double factor = Math.max(0,l.dotProduct(this.getDirection().normalize()));
 
         double d = point.distance(this.getPosition());
         int r = this._intensity.getRed();
         int g = this._intensity.getGreen();
         int b = this._intensity.getBlue();
 
-        r = (int) ((r * factor) / (this.getKC() + this.getKL() * d + this.getKQ() * Math.pow(d,2)));
-        g = (int) ((g * factor) /  (this.getKC() + this.getKL() * d + this.getKQ() * Math.pow(d,2)));
-        b = (int) ((b * factor) / (this.getKC() + this.getKL() * d + this.getKQ() * Math.pow(d,2)));
+        double denominator = this.getKC() + this.getKL() * d + this.getKQ() * Math.pow(d,2);
+        r = (int) ((r * factor) / denominator);
+        g = (int) ((g * factor) / denominator);
+        b = (int) ((b * factor) / denominator);
 
-        if (r < 0) {
-            r = 0;
-        }
-        else if (r > 255) {
-            r = 255;
-        }
-
-        if (g < 0) {
-            g = 0;
-        }
-        else if (g > 255) {
-            g = 255;
-        }
-
-        if (b < 0) {
-            b = 0;
-        }
-        else if (b > 255) {
-            b = 255;
-        }
-
-
-        return new Color(r,g,b);
+        return new Color(Math.min(r, 255),Math.min(g, 255),Math.min(b, 255));
     }
     public Ray.Vector getL(Point3D point) {
-        return new Ray.Vector(point.subtract(this.getPosition()));
+        return new Ray.Vector(point.subtract(this.getPosition())).normalize();
     }
 
     public void setDirection(Ray.Vector direction) {

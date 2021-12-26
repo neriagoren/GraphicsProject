@@ -14,6 +14,6 @@ public class DirectionalLight extends Light{
     }
 
     public Ray.Vector getL(Point3D point) {
-        return new Ray.Vector(this._direction);
+        return new Ray.Vector(this._direction).normalize();
     }
 }

@@ -13,7 +13,7 @@ public class PointLight extends Light {
     private double kQ;
 
     public PointLight(Color intensity, Point3D position, double kC, double kL, double kQ) {
-        this.setIntensity(intensity);
+        this._intensity = intensity;
         this.setPosition(position);
         this.setKC(kC);
         this.setKL(kL);
@@ -23,36 +23,18 @@ public class PointLight extends Light {
     public Color getIntensity(Point3D point) {
 
         double d = point.distance(_position);
+
         int r = this._intensity.getRed();
         int g = this._intensity.getGreen();
         int b = this._intensity.getBlue();
 
-        r = (int) (r /  (kC + kL * d + kQ * Math.pow(d,2)));
-        g = (int) (g /  (kC + kL * d + kQ * Math.pow(d,2)));
-        b = (int) (b /  (kC + kL * d + kQ * Math.pow(d,2)));
+        double denominator = this.getKC() + this.getKL() * d + this.getKQ() * Math.pow(d,2);
 
-        if (r < 0) {
-            r = 0;
-        }
-        else if (r > 255) {
-            r = 255;
-        }
+        r = (int) (r /  denominator);
+        g = (int) (g /  denominator);
+        b = (int) (b /  denominator);
 
-        if (g < 0) {
-            g = 0;
-        }
-        else if (g > 255) {
-            g = 255;
-        }
-
-        if (b < 0) {
-            b = 0;
-        }
-        else if (b > 255) {
-            b = 255;
-        }
-
-        return new Color(r,g,b);
+        return new Color(Math.min(r, 255),Math.min(g, 255),Math.min(b, 255));
     }
 
     public Point3D getPosition() {
@@ -76,6 +58,6 @@ public class PointLight extends Light {
     public void setKQ(double kQ) { this.kC = kQ;}
 
     public Ray.Vector getL(Point3D point) {
-        return new Ray.Vector(point.subtract(this._position));
+        return new Ray.Vector(point.subtract(this._position)).normalize();
     }
 }

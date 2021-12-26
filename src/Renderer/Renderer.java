@@ -10,6 +10,7 @@ import Scene.Scene;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Renderer {
     private Scene _scene;
@@ -44,19 +45,11 @@ public class Renderer {
                         constructRayThroughPixel(_imageWriter.getNx(), _imageWriter.getNy(), j, i, _scene.getScreenDistance(), _imageWriter.getWidth(), _imageWriter.getHeight());
                 List<GeoPoint> intersectionPoints = getSceneRayIntersections(ray);
 
-                if (intersectionPoints.isEmpty()) {
+                if (intersectionPoints.size() == 0) {
                     _imageWriter.writePixel(j, i, _scene.getBackground());
                 } else {
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
-//                    if (closestPoint.getGeometry() instanceof Plane && intersectionPoints.size() >= 2) {
-//
-//                        _imageWriter.writePixel(j, i, closestPoint.getGeometry().getEmission().darker());
-//
-//                    }
-//                    else {
                     _imageWriter.writePixel(j, i, calcColor(closestPoint));
-
-                    // }
                 }
             }
         }
@@ -96,62 +89,36 @@ public class Renderer {
         int g = (int) (kD *  normal.dotProduct(l) * iL.getGreen());
         int b = (int) (kD *  normal.dotProduct(l) * iL.getBlue());
 
-        if (r < 0) {
-            r = 0;
-        }
-        else if (r > 255) {
-            r = 255;
-        }
-
-        if (g < 0) {
-            g = 0;
-        }
-        else if (g > 255) {
-            g = 255;
-        }
-
-        if (b < 0) {
-            b = 0;
-        }
-        else if (b > 255) {
-            b = 255;
-        }
+        r = Math.min(r, 255);
+        r = Math.max(0, r);
+        g = Math.min(g, 255);
+        g = Math.max(0, g);
+        b = Math.min(b, 255);
+        b = Math.max(0, b);
 
         return new Color(r, g, b);
     }
 
     private Color calcSpecularComp(double kS, Ray.Vector v, Ray.Vector normal, Ray.Vector l, int shininess, Color iL) {
-        Ray.Vector R = l.subtract(normal.scale(2 * l.dotProduct(normal)));
+        Ray.Vector R = l.subtract(normal.scale(2 * (l.dotProduct(normal)))).normalize();
         int r = (int) (kS *  Math.pow(v.dotProduct(R), shininess) * iL.getRed());
         int g = (int) (kS * Math.pow(v.dotProduct(R), shininess) * iL.getGreen());
         int b = (int) (kS * Math.pow(v.dotProduct(R), shininess) * iL.getBlue());
 
-        if (r < 0) {
-            r = 0;
-        }
-        else if (r > 255) {
-            r = 255;
-        }
-
-        if (g < 0) {
-            g = 0;
-        }
-        else if (g > 255) {
-            g = 255;
-        }
-
-        if (b < 0) {
-            b = 0;
-        }
-        else if (b > 255) {
-            b = 255;
-        }
-
+        r = Math.min(r, 255);
+        r = Math.max(0, r);
+        g = Math.min(g, 255);
+        g = Math.max(0, g);
+        b = Math.min(b, 255);
+        b = Math.max(0, b);
 
         return new Color(r, g, b);
     }
 
+
+
     private Color calcColor(GeoPoint gp) {
+
         Color ambientLight = _scene.getAmbientLight().getIntensity(gp.getPoint());
         Color emissionLight = gp.getGeometry().getEmission();
 
@@ -159,103 +126,60 @@ public class Renderer {
         int g = 0;
         int b = 0;
 
-        for (Light light : this._scene.getLights()) {
-            try {
-                double kd = gp.getGeometry().getMaterial().getKd();
-            }
-            catch (NullPointerException e) {
-                System.out.println("WTF");
-            }
-
-
-//            Color color = calcDiffusiveComp(kd, normal, l, intensity);
-//            r += color.getRed();
-//            g += color.getGreen();
-//            b += color.getBlue();
-        }
-
-        if (r < 0) {
-            r = 0;
-        }
-        else if (r > 255) {
-            r = 255;
-        }
-
-        if (g < 0) {
-            g = 0;
-        }
-        else if (g > 255) {
-            g = 255;
-        }
-
-        if (b < 0) {
-            b = 0;
-        }
-        else if (b > 255) {
-            b = 255;
-        }
-
-
-        Color diffuseLight = new Color(r, g, b);
-
-        r = 0;
-        g = 0;
-        b = 0;
 
         for (Light light : this._scene.getLights()) {
-            Color color = calcSpecularComp(gp.getGeometry().getMaterial().getKs(),
-                    new Ray.Vector(gp.getPoint().subtract(this._scene.getCamera().getP0())),
-                    gp.getGeometry().getNormal(gp.getPoint()),
-                    light.getL(gp.getPoint()),
-                    gp.getGeometry().getMaterial().getShininess(),
-                    light.getIntensity(gp.getPoint())
-                    );
-            r += color.getRed();
-            g += color.getGreen();
-            b += color.getBlue();
+
+            if (!shaded(light, light.getL(gp.getPoint()),gp.getPoint(), gp.getGeometry().getNormal(gp.getPoint()))) {
+                Color color = calcDiffusiveComp(gp.getGeometry().getMaterial().getKd(),
+                        gp.getGeometry().getNormal(gp.getPoint()),
+                        light.getL(gp.getPoint()).scale(-1),
+                        light.getIntensity(gp.getPoint()));
+
+                r += color.getRed();
+                g += color.getGreen();
+                b += color.getBlue();
+
+                color = calcSpecularComp(gp.getGeometry().getMaterial().getKs(),
+                        _scene.getCamera().getP0().subtract(gp.getPoint()).normalize(),
+                        gp.getGeometry().getNormal(gp.getPoint()),
+                        light.getL(gp.getPoint()),
+                        gp.getGeometry().getMaterial().getShininess(),
+                        light.getIntensity(gp.getPoint()));;
+
+                r += color.getRed();
+                g += color.getGreen();
+                b += color.getBlue();
+            }
         }
 
-        if (r < 0) {
-            r = 0;
-        }
-        else if (r > 255) {
-            r = 255;
-        }
+        r += (ambientLight.getRed() + emissionLight.getRed()) ;
+        g += (ambientLight.getGreen() + emissionLight.getGreen()) ;
+        b += (ambientLight.getBlue() + emissionLight.getBlue()) ;
 
-        if (g < 0) {
-            g = 0;
-        }
-        else if (g > 255) {
-            g = 255;
-        }
-
-        if (b < 0) {
-            b = 0;
-        }
-        else if (b > 255) {
-            b = 255;
-        }
-
-
-
-        Color specularLight = new Color(r, g, b);
-
-        r = ambientLight.getRed() + emissionLight.getRed() + diffuseLight.getRed() + specularLight.getRed();
-        g = ambientLight.getGreen() + emissionLight.getGreen() + diffuseLight.getGreen() + specularLight.getGreen();
-        b = ambientLight.getBlue() + emissionLight.getBlue() + diffuseLight.getBlue() + specularLight.getBlue();
-
-
-        if (r > 255) {
-            r = 255;
-        }
-        if (g > 255) {
-            g = 255;
-        }
-        if (b > 255) {
-            b = 255;
-        }
-
+        r = Math.max(0,r);
+        r = Math.min(r, 255);
+        g = Math.max(0,g);
+        g = Math.min(g, 255);
+        b = Math.max(0,b);
+        b = Math.min(b, 255);
         return new Color(r, g, b);
+    }
+
+    private static final double EPS = 0.1;
+
+    private boolean shaded(Light light, Ray.Vector l, Point3D point, Ray.Vector n) {
+        Ray.Vector lightDirection = l.scale(-1);
+        Ray.Vector epsVector = n.scale(EPS);
+        Point3D newPoint = point.add(epsVector);
+
+        Ray shadowRay = new Ray(newPoint, lightDirection);
+        List<GeoPoint> intersectionPoints = getSceneRayIntersections(shadowRay);
+        if (intersectionPoints.isEmpty()) {
+            return false;
+        }
+
+        return true;
 
     }
+
 }
