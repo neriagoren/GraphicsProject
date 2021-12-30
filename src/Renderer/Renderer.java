@@ -45,9 +45,10 @@ public class Renderer {
                         constructRayThroughPixel(_imageWriter.getNx(), _imageWriter.getNy(), j, i, _scene.getScreenDistance(), _imageWriter.getWidth(), _imageWriter.getHeight());
                 List<GeoPoint> intersectionPoints = getSceneRayIntersections(ray);
 
-                if (intersectionPoints.size() == 0) {
+                if (intersectionPoints.isEmpty()) {
                     _imageWriter.writePixel(j, i, _scene.getBackground());
-                } else {
+                }
+                else {
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
 
                     if (closestPoint.getGeometry() instanceof Plane) {
@@ -60,6 +61,7 @@ public class Renderer {
                             closestPoint.getGeometry().setEmission(Color.WHITE);
                         }
                     }
+
                     _imageWriter.writePixel(j, i, calcColor(closestPoint));
                 }
             }
@@ -88,7 +90,7 @@ public class Renderer {
 
         for (GeoPoint gPoint : intersectionPoints) {
             if (P0.distance(gPoint.getPoint()) < distance) {
-                minDistancePoint = new GeoPoint(gPoint);
+                minDistancePoint = gPoint;
                 distance = P0.distance(gPoint.getPoint());
             }
         }
@@ -111,6 +113,10 @@ public class Renderer {
     }
 
     private Color calcSpecularComp(double kS, Ray.Vector v, Ray.Vector normal, Ray.Vector l, int shininess, Color iL) {
+
+        if ( l.dotProduct(normal) == 0) {
+            System.out.println("l: " + l + " ,normal: " + normal);
+        }
         Ray.Vector R = l.subtract(normal.scale(2 * (l.dotProduct(normal)))).normalize();
         int r = (int) (kS *  Math.pow(v.dotProduct(R), shininess) * iL.getRed());
         int g = (int) (kS * Math.pow(v.dotProduct(R), shininess) * iL.getGreen());
@@ -140,12 +146,11 @@ public class Renderer {
 
         for (Light light : this._scene.getLights()) {
 
-            if (!shaded(light, light.getL(gp.getPoint()),gp.getPoint(), gp.getGeometry().getNormal(gp.getPoint()))) {
+            if (!shaded(light.getL(gp.getPoint()),gp.getPoint(), gp.getGeometry().getNormal(gp.getPoint()))) {
                 Color color = calcDiffusiveComp(gp.getGeometry().getMaterial().getKd(),
                         gp.getGeometry().getNormal(gp.getPoint()),
                         light.getL(gp.getPoint()).scale(-1),
                         light.getIntensity(gp.getPoint()));
-
                 r += color.getRed();
                 g += color.getGreen();
                 b += color.getBlue();
@@ -178,7 +183,7 @@ public class Renderer {
 
     private static final double EPS = 0.1;
 
-    private boolean shaded(Light light, Ray.Vector l, Point3D point, Ray.Vector n) {
+    private boolean shaded(Ray.Vector l, Point3D point, Ray.Vector n) {
         Ray.Vector lightDirection = l.scale(-1);
         Ray.Vector epsVector = n.scale(EPS);
         Point3D newPoint = point.add(epsVector);

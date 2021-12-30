@@ -94,16 +94,16 @@ public class Sphere extends Geometry {
             }
             return points;
         }
-        // Ray start from inside of Sphere
+        // Ray starts from inside of Sphere
         else if (p0.distance(C) < R) {
             if (t1 > 0) {
                 // append point
-                points.add(new GeoPoint(this, p0.add(v.scale(t1))));
+                points.add(new GeoPoint(new Sphere(this), p0.add(v.scale(t1))));
                 return points;
             }
             if (t2 > 0) {
                 // append point
-                points.add(new GeoPoint(this, p0.add(v.scale(t2))));
+                points.add(new GeoPoint(new Sphere(this), p0.add(v.scale(t2))));
                 return points;
             }
         }

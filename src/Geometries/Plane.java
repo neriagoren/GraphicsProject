@@ -1,5 +1,6 @@
 package Geometries;
 
+import Primitives.Material;
 import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Ray.*;
@@ -19,6 +20,7 @@ public class Plane extends Geometry {
         this.calculateD();
         this.setEmission(color);
     }
+
 
     public Plane(Point3D A, Point3D B, Point3D C, Color color) {
         Vector AB = B.subtract(A);
@@ -133,6 +135,7 @@ public class Plane extends Geometry {
 
     @Override
     public String toString() {
+
         return "Plane\n" + "Point: " + this._point.toString() + ", Normal: " + this._normal.toString()
                 + ", Color: " + this.getEmission().toString();
     }

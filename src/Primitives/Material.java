@@ -10,12 +10,12 @@ public class Material {
         this._ks = material.getKs();
         this._nShininess = material.getShininess();
     }
-    public  Material() {
+    public Material() {
         this._kd = 0;
         this._ks = 0;
         this._nShininess = 1;
     }
-    public  Material(double kd,double ks, int nS){
+    public Material(double kd,double ks, int nS){
         this._kd = kd;
         this._ks = ks;
         this._nShininess = nS;
@@ -37,4 +37,8 @@ public class Material {
      */
     public int getShininess() { return this._nShininess; }
     public void setShininess(int nShininess) { this._nShininess = nShininess; }
+    @Override
+    public String toString() {
+        return "" + _kd + " " + _ks + " " + _nShininess;
+    }
 }

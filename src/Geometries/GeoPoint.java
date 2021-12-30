@@ -23,13 +23,13 @@ public class GeoPoint {
         this.point = point;
     }
 
-    public GeoPoint(Geometry geometry2, Point3D point2) {
-        geometry = geometry2;
-        point = point2;
+    public GeoPoint(Geometry geometry, Point3D point) {
+        this.setGeometry(geometry);
+        this.setPoint(point);
     }
 
     public GeoPoint(GeoPoint point) {
-        this.geometry = point.getGeometry();
+        this.geometry = this.getGeometry();
         this.point = point.getPoint();
     }
 
@@ -40,5 +40,9 @@ public class GeoPoint {
         if (!(obj instanceof GeoPoint)) return false;
         GeoPoint oth = (GeoPoint)obj;
         return this.geometry.equals(oth.geometry) && this.point.equals(oth.point);
+    }
+
+    public String toString() {
+        return "" + this.geometry.toString() + " " + this.point.toString();
     }
 }

@@ -47,8 +47,8 @@ public class Triangle extends Geometry {
         Plane plane = new Plane(this._p1, this._p2, this._p3, this.getEmission());
         List<GeoPoint> points = plane.findIntersections(ray);
 
+
         // Checking if the intersection point is inside the triangle
-        // create 3 planes - pyramid. then check if all signs are the same
         Vector v1 = this._p1.subtract(ray.getP());
         Vector v2 = this._p2.subtract(ray.getP());
         Vector v3 = this._p3.subtract(ray.getP());
@@ -58,14 +58,23 @@ public class Triangle extends Geometry {
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();
 
+        if (points != null) {
+            for (GeoPoint point : points) {
+                point.setGeometry(this);
+            }
+        }
         if (Util.alignZero(ray.getDirection().dotProduct(n1)) > 0 &&
                 Util.alignZero(ray.getDirection().dotProduct(n2)) > 0 &&
                 Util.alignZero(ray.getDirection().dotProduct(n3)) > 0) {
+
+
             return points;
         }
         else if (Util.alignZero(ray.getDirection().dotProduct(n1)) < 0 &&
                 Util.alignZero(ray.getDirection().dotProduct(n2)) < 0 &&
                 Util.alignZero(ray.getDirection().dotProduct(n3)) < 0) {
+
+
             return points;
         }
         else {
